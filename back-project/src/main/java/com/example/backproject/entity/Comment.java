@@ -43,4 +43,5 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "authorId", insertable = false, updatable = false)
     private User author;
+
 }

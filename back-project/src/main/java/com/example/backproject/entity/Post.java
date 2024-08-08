@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "posts")
 @Data
@@ -42,8 +44,6 @@ public class Post {
         created_at = LocalDateTime.now();
     }
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
 
     @ManyToOne
     @JoinColumn(name = "userId", insertable = false, updatable = false)

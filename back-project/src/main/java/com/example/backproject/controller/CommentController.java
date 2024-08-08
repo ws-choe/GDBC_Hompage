@@ -19,21 +19,23 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<?> createComment(@PathVariable Integer postId,
+    public ResponseEntity<?> createComment(@PathVariable("postId") Integer postId,
                                            @RequestBody Comment comment) {
-        comment.setPost(Post.builder().id(postId).build());
+        comment.setPostId(postId);
+        System.out.println(comment.getPostId());
         Comment createdComment = commentService.createComment(comment);
+        System.out.println("======================");
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<?> getCommentsByPostId(@PathVariable Integer postId) {
+    public ResponseEntity<?> getCommentsByPostId(@PathVariable("postId") Integer postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         return ResponseEntity.ok(comments);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteComment(@PathVariable("id") Integer id) {
         commentService.deleteComment(id);
         return ResponseEntity.noContent().build();
     }

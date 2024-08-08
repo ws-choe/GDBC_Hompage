@@ -45,7 +45,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePost(@PathVariable Integer id,
+    public ResponseEntity<?> updatePost(@PathVariable("id") Integer id,
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
@@ -67,13 +67,13 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable Integer id) {
+    public ResponseEntity<?> deletePost(@PathVariable("id") Integer id) {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/view")
-    public ResponseEntity<?> incrementViews(@PathVariable Integer id) {
+    public ResponseEntity<?> incrementViews(@PathVariable("id") Integer id) {
         postService.incrementViews(id);
         return ResponseEntity.ok().build();
     }
@@ -86,11 +86,14 @@ public class PostController {
         response.put("posts", postPage.getContent());
         response.put("totalPages", postPage.getTotalPages());
         response.put("currentPage", page);
+        
+        System.out.println(response);
+        
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPostById(@PathVariable Integer id) {
+    public ResponseEntity<?> getPostById(@PathVariable("id") Integer id) {
         Post post = postService.getPostById(id);
         return ResponseEntity.ok(post);
     }

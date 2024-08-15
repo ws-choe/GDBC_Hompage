@@ -1,0 +1,168 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif
+}
+body
+{
+    min-width: 100vw;
+    min-height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.container .card
+{
+    max-width: 300px;
+    height: 215px;
+    margin: 30px 10px;
+    padding: 20px 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: 0.3s ease-in-out;
+}
+.container .card:hover
+{
+    height: 450px;
+}
+.container .card .imgContainer
+{
+    position: relative;
+    width:250px;
+    height:250px;
+    top:-50px;
+    left:10px;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.container .card .imgContainer img
+{
+    max-width: 100%;
+    border-radius: 4px;
+}
+.container .card .content
+{
+    position: relative;
+    margin-top: -140px;
+    padding: 10px 15px;
+    text-align: center;
+    color:#111;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease-in-out;
+}
+.container .card:hover .content
+{
+    visibility: visible;
+    opacity: 1;
+    margin-top: -40px;
+    transition-delay: 0.3s;
+}
+
+@media (max-width: 330px){
+    .container .card .imgContainer{
+        left: -2px;
+    }
+}
+
+.card-text {
+  color: white;
+  text-align: center;
+}
+.card-body1 {
+  background-color: #002D68;
+
+}
+.card-body2 {
+  background-color: #406E23;
+
+}
+.card-body3 {
+  background-color: #FACA4E;
+
+}
+.card-body4 {
+  background-color: #FF981B;
+
+}
+
+
+.curriculum-section {
+  margin-top: 40px;
+}
+
+.curriculum-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.curriculu-grid {
+  display: flex;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 200px;
+  justify-items: center;
+}
+
+.curriculum-item {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.testimonials-section {
+  margin-top: 40px;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonials-section .testimonial {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.input {
+    padding: 10px;
+ 
+    background: none;
+    border: 4px solid #ffd52d;
+    border-radius: 50px;
+    box-sizing: border-box;
+    font-family: Comic Sans MS;
+    font-size: 26px;
+    color: #ffd52d;
+    outline: none;
+    transition: .5s;
+}
+.box:hover input{
+     
+    background: #3b3640;
+    border-radius: 10px;
+}
+.box i{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #f1f1f1;
+    transition: .2s;
+}
+.box:hover i{
+    opacity: 0;
+    z-index: -1;
+}
+
+

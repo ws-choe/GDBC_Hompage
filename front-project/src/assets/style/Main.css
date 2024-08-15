@@ -1,0 +1,263 @@
+@charset "UTF-8";
+li,ul,ol{list-style : none};
+a {color: #000; text-decoration: none;}
+.clear {clear: both;}
+.clear:after {content: ""; display: block; clear: both;}
+
+header {
+    position: fixed;
+    box-shadow: 0px 2px 0px 0px #555555;
+    border: 1px solid rgb(0, 0, 0);
+
+}
+header > div{width: 1400px; padding: 26px 0 0 0; margin: 0 auto; position: relative;}
+header h1{float: left;}
+/* float을 설정하게 되면 부모요소의 높이가 초기화된다. 따라서 부모요소에 clear클래스를 주었다. */
+
+header .lang{float: right;}
+header nav{float: left; padding: 0 0 0 43px;}
+header nav a{letter-spacing: -0.25px;}
+/* 자간 설정 : 포토샵에서 -25 ---> letter-spacing에서 */
+header .gnb > li{float: left; position: relative; width: 165px;}
+header .gnb > li.w2{width : 219px;} 
+/* 메뉴 카테고리마다 너비를 동일하게 주어 통일감은 준다. */
+/* 투자정보만 조금 더 길게 너비를 지정해준다. */
+header .gnb > li:hover > a{background-color: #3f1bf7; color: #ffffff;}
+header .gnb > li:hover > div{background: #d7d7d7;}
+header .gnb > li > a {display: block; font-size: 16px; color: #222; line-height: 58px; text-align: center;}
+/* 인라인 요소인 a에 line-height를 주기 위해 display:block을 지정한다. */
+header .gnb > li > div{display: none; position: absolute; left: 0; z-index: 3; width: 100%; padding: 16px 20px; box-sizing: border-box; border-left: 1px solid #d7d7d7; background-color: #ffffff;} 
+header .gnb > li:last-child > div{ border-right: 1px solid #ffffff;}
+header .gnb > li > div > div > ul > a {display: block;}
+header .gnb > li > div > div > ul > li{line-height: 40px;}
+header .gnb > li > div > div > ul > li > a{font-size: 15px;  color: #292929;}
+header .gnb > li > div > div > ul > li > ul{padding: 0 0 8px;}
+header .gnb > li > div > div > ul > li > ul > li{line-height: 26px;}
+header .gnb > li > div > div > ul > li > ul > li a{font-size: 13px; color: #966b6b;}
+header .gnb > li.w2 > div > div{float: left; width: 50%;}
+/* 하위메뉴가 2개 열로 디자인한 부분 */
+.bg_gnb{display: none; position: absolute; left: 0;  top: 90px; z-index: 2;  border-top: 1px solid #d7d7d7;}
+.bg_gnb::after{content: ""; position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid #d7d7d7;}
+.ie9 header:after{background: #e94e66;}
+
+
+.logo-img {
+   width: 200px;;
+}
+
+/* 상단 메뉴바 크기 메뉴들 위치 조절 */
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.user-actions .nav-link {
+    margin-right: 10px;
+}
+
+.user-actions .divider {
+    width: 1px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 0 10px;
+}
+
+.user-actions .btn {
+    margin-left: 10px;
+}
+
+/* 검색창 */
+
+form.main {
+    position: relative;
+    top: 50%;
+    left: 85%;
+    transform: translate(-25%, -50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    background: rgb(165, 51, 51);
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 4px solid rgb(232, 82, 82);
+    padding: 5px;
+}
+
+input.main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.fa{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 42.5px;
+    height: 42.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 4px;
+    color: #07051a;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 1s;
+}
+
+form.main:hover,
+form.main:valid{
+    width: 200px;
+    cursor: pointer;
+}
+
+form:hover input.main,
+form:valid input.main{
+    display: block;
+}
+
+form:hover .fa,
+form:valid .fa{
+    background: #07051a;
+    color: rgb(249, 26, 26);
+}
+
+
+button.main {
+  display: none;
+  position: absolute;
+  top: 70px;
+  bottom:0;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  color: rgb(135, 32, 32);
+  background-color: #e6233e;
+  padding: 4px;  
+  min-height: max-content;
+  
+  outline: 0;
+  border: px solid #ed2525;
+  border-radius: 4px;
+  text-align: center; 
+  width: 100%;
+  
+}
+
+form:valid button.main {
+  display: block;
+}
+
+
+/* 하단 */
+
+
+
+.foote-content {
+    justify-content: space-between;
+    background-color: #fcfcfc;
+    padding: 18px calc(1.6154rem + 50px) 18px 1.6154rem;
+    height: 300px;
+    margin: 50px;
+  }
+  
+  .foote-left {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f4f4f4;
+    padding: 18px calc(1.6154rem + 50px) 18px 1.6154rem;
+    height: auto;
+    margin: auto;
+    
+  }
+  
+  
+  .foote-left .logo {
+    margin-right: 100px;
+  }
+  
+  .foote-left .info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .foote-left .info .links {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .foote-left .info .links a {
+  
+    text-decoration: none;
+    margin-bottom: 5px;
+  }
+  
+  .foote-left .info .contact p {
+    margin: 2px 0;
+  }
+  
+  .foote-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+  
+  }
+  
+  .foote-right .buttons {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+  }
+  
+  .foote-right .buttons button {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .foote-right .social-icons {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .foote-right .social-icons a {
+    margin-right: 10px;
+  }
+  
+  .foote-right .certification img {
+    width: 100px;
+  }
+  .certification {
+    width: 100px;
+  }
+  .box{
+      position: relative;
+      
+  }
+
+  
+.social-icons {
+    display: flex;
+    gap: 10px; /* 아이콘 사이의 간격을 조정합니다. 필요에 따라 수정하세요. */
+  }
+  
+  .social-icon {
+    width: 24px; /* 아이콘의 너비를 조정합니다. 필요에 따라 수정하세요. */
+    height: auto; /* 비율을 유지하면서 높이를 자동으로 조정합니다. */
+  }

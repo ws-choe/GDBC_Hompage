@@ -1,0 +1,303 @@
+/* 메뉴바 스타일 */
+.lnb {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+}
+
+.lnb > ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.lnb > ul > li {
+  position: relative;
+  margin: 0 10px;
+}
+
+.lnb > ul > li:hover > a {
+  border-radius: 5px;
+}
+
+.subMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 20;
+  z-index: 1000;
+}
+
+.lnb > ul > li:hover .subMenu {
+  display: block;
+}
+
+.subMenu li {
+  padding: 0;
+  margin: 0;
+}
+
+.subMenu a {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.subMenu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* 전체 레이아웃 스타일 */
+.outer-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.inner-container {
+  width: 1800px;
+  padding: 0 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.logo {
+  width: 200px;
+}
+
+.logo2 {
+  width: 150px;
+}
+.auth-links {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth-links a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+.divider {
+  width: 1px;
+  margin: 10px;
+  background-color: #ccc;
+  height: 20px;
+}
+
+.banner {
+  background-image: url("/src/assets/image/Main.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  background-color: #e9ecef;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.sub-banner {
+  content: "";
+
+  background: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+  z-index: 1; /* 배경 위에 텍스트가 위치하도록 설정 */
+}
+
+.banner h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.banner p {
+  font-size: 18px;
+}
+
+.banner .highlight {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.banner .apply-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.news-section {
+  margin-top: 40px;
+}
+
+.news-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.video-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.news-images {
+  display: flex;
+  justify-content: space-around;
+}
+
+.news-images img {
+  width: 23%;
+  border-radius: 10px;
+}
+
+.curriculum-section {
+  margin-top: 40px;
+}
+
+.curriculum-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.curriculum-item {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.testimonials-section {
+  margin-top: 40px;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonials-section .testimonial {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+header {
+  position: relative;
+}
+
+.lnb > ul {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.lnb li {
+  margin-right: 2px;
+}
+
+.lnb a {
+  display: block;
+  width: 140px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: blue;
+}
+.subMenu {
+  width: 170px;
+  height: 200px;
+  display: none;
+  position: absolute;
+  background-color: white;
+}
+
+.lnb > ul:hover .subMenu {
+  display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item > a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  display: block;
+  position: relative;
+}
+
+.menu-item > a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: black;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+.menu-item > a:hover::after,
+.menu-item > a:focus::after {
+  width: 100%;
+  left: 0;
+  background: black;
+}
+
+.sub-menu {
+  display: none;
+}
+
+.menu-item:hover .sub-menu,
+.menu-item:focus-within .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  padding: 5px 10px;
+}
+
+.sub-menu li a {
+  text-decoration: none;
+  color: black;
+}
+
+.sub-menu li a:hover {
+  text-decoration: underline;
+}
+
+.foote {
+  background-color: #f8f8f8; /* 배경색 설정 */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f8f8f8;
+}
+.contact-inf {
+  display: flex;
+
+  gap: 12px;
+}

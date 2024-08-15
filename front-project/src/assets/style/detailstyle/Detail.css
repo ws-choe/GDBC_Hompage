@@ -1,0 +1,105 @@
+/* 상세 페이지 스타일 */
+.post-detail {
+  text-align: left;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  position: relative;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.post-image {
+  width: 100%; /* 부모 요소의 너비에 맞게 조절 */
+  max-width: 600px; /* 최대 너비를 600px로 제한 */
+  height: auto; /* 비율을 유지하면서 자동으로 높이 조절 */
+}
+
+
+.comments h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.comment-item p {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* 추가 디자인 */
+.project-container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+background-color: #fff;
+}
+
+.project-title {
+text-align: left;
+margin-top: 20px;
+}
+
+.nav-buttons {
+display: flex;
+margin: 50px 0 50px 0px;
+}
+
+.nav-button {
+display: block;
+padding: 10px 20px;
+margin: 0 20px 0 0px;
+background-color: #FACA4E;
+color: #fff;
+text-align: center;
+text-decoration: none;
+border-radius: 50px;
+font-weight: bold;
+}
+
+.nav-button:hover {
+background-color: #FF981B;
+}
+
+.active {
+background-color: #e67e22;
+}
+
+.post-line{
+width: 1260px;
+height: 1px;
+background-color: #555555;
+
+}
+
+.post-title {
+text-align: left;
+}
+
+.post-subtitle {
+display: flex;
+}
+
+.created {
+margin-right: 40px;
+}
+
+.list-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 50px 0 50px;
+
+}
+
+.upload-label {
+margin: 10px 0 10px 0;
+}

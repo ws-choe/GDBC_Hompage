@@ -1,0 +1,89 @@
+/* 드롭다운 메뉴가 마우스 오버 시 열리도록 설정 */
+.nav-item.dropdown:hover .dropdown-menu {
+   display: block;
+ }
+ 
+ /* 드롭다운 메뉴의 기본 동작 설정 */
+ .dropdown-menu {
+   display: none; /* 기본적으로 숨기기 */
+   position: absolute; /* 메뉴가 드롭다운 영역에 맞게 위치하도록 설정 */
+   min-width: 200px; /* 드롭다운 메뉴의 최소 너비 설정 */
+   margin-top: 0; /* 메뉴와 상위 항목 사이의 간격 제거 */
+ }
+ 
+ /* 네비게이션 바 중앙 정렬 설정 */
+ .navbar-nav {
+   display: flex;
+   justify-content: center;
+   padding: 0; /* 기본 패딩 제거 */
+ }
+ 
+ .navbar-nav .nav-item {
+   margin: 0 15px; /* 항목 간의 간격 설정 */
+ }
+ 
+ /* 드롭다운 메뉴의 항목 간격 설정 */
+ .dropdown-item {
+   padding: 10px 20px; /* 항목 간의 간격 설정 */
+ }
+ 
+ /* 검색 폼 오른쪽 정렬 */
+ .form-inline {
+   margin-left: auto;
+ }
+ /* 오른쪽 정렬을 위한 추가 스타일 */
+ .ms-auto {
+   margin-left: auto;
+ }
+ .logo{
+   width: 200px;
+ }
+ .dropdown:hover .dropdown-menu {
+   display: block;
+   margin-top: 0;
+ }
+ /*ㅇㅁㄴㅇ*/
+ 
+ .outer-container {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   padding: 20px 0;
+ }
+ 
+ .inner-container {
+   width: 1800px;
+   padding: 0 20px;
+   background-color: #fff;
+   border: 1px solid #ddd;
+   border-radius: 10px;
+   overflow: hidden;
+ }
+ 
+ 
+ .logo {
+   font-size: 24px;
+   position: relative;
+   left: 100px;
+ }
+ 
+ 
+ .auth-links {
+   display: flex;
+   align-items: center;
+   border: 1px solid #ccc; /* 테두리 색상 조정 */
+   border-radius: 5px; /* 모서리 둥글게 */
+ }
+ 
+ .auth-links a {
+   padding: 10px 20px; /* 링크의 내부 여백 */
+   text-decoration: none;
+   color: #000; /* 텍스트 색상 */
+ }
+ 
+ .divider {
+   width: 1px;
+   margin: 10px;
+   background-color: #ccc; /* 구분선 색상 */
+   height: 20px; /* 구분선 높이, 링크와 같은 높이로 설정 */
+ }

@@ -47,7 +47,7 @@
   </template>
   
   <script setup>
-    import { ref, onMounted } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import axios from 'axios';
   import { useUserStore } from '@/store/SignUp';
@@ -81,7 +81,7 @@
   
   const fetchPost = async (id) => {
     try {
-      const response = await axios.get(`/posts/${id}`);
+      const response = await axios.get(`/activity/${id}`);
       title.value = response.data.title;
       content.value = response.data.content;
       // 이미지 미리보기 설정 (만약 이미지 URL을 제공하는 경우)
@@ -114,11 +114,11 @@
   
     try {
       if (isEditing.value) {
-        await axios.put(`/posts/${route.params.id}`, formData, {
+        await axios.put(`/activity/${route.params.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        await axios.post('/posts', formData, {
+        await axios.post('/activity', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       }

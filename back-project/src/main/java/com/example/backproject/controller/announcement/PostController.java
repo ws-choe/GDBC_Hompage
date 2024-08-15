@@ -4,13 +4,19 @@ import com.example.backproject.entity.announcement.Post;
 import com.example.backproject.service.announcement.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
+//0809 이미지 업로드 기능 추가. 김가영
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -57,47 +65,27 @@ public class PostController {
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
                                         @RequestParam(value = "removeImage", required = false) Boolean removeImage) {
-        // 기존 게시물 조회
-        Post existingPost = postService.getPostById(id);
-        if (existingPost == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Post not found with id: " + id);
-        }
-
-        // 새로운 이미지가 업로드되었는지 확인
-        String imagePath = existingPost.getImagePath(); // 기존 이미지 경로를 기본으로 설정
+        String imagePath = null;
 
         if (image != null) {
-            // 새 이미지가 업로드된 경우 기존 이미지 삭제 후 새 이미지 저장
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
             imagePath = saveImage(image);
-        } else if (removeImage != null && removeImage) {
-            // 이미지 제거 요청이 있으면 기존 이미지 삭제
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
-            imagePath = null; // 이미지 경로를 null로 설정
         }
 
-        // 업데이트할 게시물 세부 정보 설정
         Post postDetails = Post.builder()
                 .title(title)
                 .content(content)
                 .imagePath(imagePath)
                 .build();
 
-        // 게시물 업데이트
         Post updatedPost = postService.updatePost(id, postDetails, removeImage);
 
         return ResponseEntity.ok(updatedPost);
     }
 
-
+    //김가영님 추가 코드
     private String saveImage(MultipartFile image) {
-        String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-        Path savePath = Paths.get(uploadPath, filename);
+        String originalFilename = image.getOriginalFilename();
+        Path savePath = Paths.get(uploadPath, originalFilename);
 
         try {
             if (!Files.exists(savePath.getParent())) {
@@ -109,18 +97,9 @@ public class PostController {
             throw new RuntimeException("Failed to save image", e);
         }
 
-        return filename;
+        return originalFilename; // 원본 파일명을 반환
     }
 
-    private void deleteImage(String imagePath) {
-        Path filePath = Paths.get(uploadPath, imagePath);
-        try {
-            Files.deleteIfExists(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to delete image", e);
-        }
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Integer id) {
@@ -151,4 +130,29 @@ public class PostController {
         Post post = postService.getPostById(id);
         return ResponseEntity.ok(post);
     }
+
+    //다운로드 기능
+    @GetMapping("/download/{filename:.+}")
+    public ResponseEntity<Resource> downloadImage(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get(uploadPath).resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                String contentType = Files.probeContentType(filePath); // 파일의 MIME 타입을 자동으로 감지
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        .contentType(MediaType.parseMediaType(contentType)) // MIME 타입 설정
+                        .body(resource);
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error occurred while downloading the file", e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

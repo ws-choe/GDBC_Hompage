@@ -82,9 +82,9 @@
           <td>{{ post.id }}</td>
           <!-- 제목 클릭 시 상세 페이지로 이동 -->
           <td>
-            <router-link :to="{ name: 'DetActivityPlan', params: { id: post.id } }">{{
-              post.title
-            }}</router-link>
+            <router-link :to="{ name: 'DetActivityPlan', params: { id: post.id } }">
+              {{post.title}}
+            </router-link>
           </td>
           <td>{{ post.userId }}</td>
           <td>{{ formatDate(post.created_at) }}</td>

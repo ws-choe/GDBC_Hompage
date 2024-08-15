@@ -70,6 +70,8 @@ const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId
 
 const fetchPostDetails = async () => {
   try {
+    await axios.put(`/qnaboard/${route.params.id}/view`);
+
     const response = await axios.get(
       `/qnaboard/${route.params.id}`
     );

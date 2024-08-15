@@ -70,6 +70,8 @@ const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId
 
 const fetchPostDetails = async () => {
  try {
+  await axios.put(`/presentaion/${route.params.id}/view`);
+
    const response = await axios.get(`/presentaion/${route.params.id}`);
    post.value = response.data;
    console.log('Post Data:', post.value); // 응답 데이터 확인

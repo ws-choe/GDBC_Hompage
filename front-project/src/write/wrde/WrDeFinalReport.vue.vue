@@ -81,7 +81,7 @@
  
  const fetchPost = async (id) => {
    try {
-     const response = await axios.get(`/posts/${id}`);
+     const response = await axios.get(`/finalreport/${id}`);
      title.value = response.data.title;
      content.value = response.data.content;
      // 이미지 미리보기 설정 (만약 이미지 URL을 제공하는 경우)
@@ -114,11 +114,11 @@
  
    try {
      if (isEditing.value) {
-       await axios.put(`/posts/${route.params.id}`, formData, {
+       await axios.put(`/finalreport/${route.params.id}`, formData, {
          headers: { 'Content-Type': 'multipart/form-data' }
        });
      } else {
-       await axios.post('/posts', formData, {
+       await axios.post('/finalreport', formData, {
          headers: { 'Content-Type': 'multipart/form-data' }
        });
      }

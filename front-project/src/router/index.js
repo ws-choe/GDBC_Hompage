@@ -71,6 +71,11 @@ import DetEmployment from '../detail/DetEmployment.vue';
 import DetQnABoard from '../detail/DetQnABoard.vue';
 import DetRecruitmentNotice from '../detail/DetRecruitmentNotice.vue';
 
+
+//패스워드 변경 페이지
+import ChangePassword from '@/components/ChangePassword.vue';
+import ResetPasswordRequest from '@/components/ResetPasswordRequest.vue';
+
 const routes = [
   // 메인
   {
@@ -338,6 +343,17 @@ const routes = [
     name: 'DetRecruitmentNotice',
     component: DetRecruitmentNotice,
     props: true
+  },
+  {
+    path: '/user/reset-password',
+    name: 'ResetPasswordRequest',
+    component: ResetPasswordRequest,
+  },
+  {
+    path: '/user/change-password',
+    name: 'ChangePassword',
+    component: ChangePassword,
+    props: (route) => ({ token: route.query.token }),
   },
 ];
 

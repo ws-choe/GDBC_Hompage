@@ -17,11 +17,24 @@
           <label for="password">비밀번호</label>
           <input type="password" id="password" :value="password" @input="updatePassword" required />
         </div>
-        <div>
+        <!-- <div>
           <label for="token">토큰</label>
           <input type="text" id="token" :value="token" @input="updateToken" required />
-        </div>
+        </div> -->
         <button style="width: 100px; height: 50px; border-radius: 5px; background-color: #eeee;" type="submit">로그인</button>
+        <router-link to="/user/reset-password" style="text-decoration: none">
+          <button
+            style="
+              width: 150px;
+              height: 50px;
+              border-radius: 5px;
+              background-color: #eeee;
+            "
+            type="button"
+          >
+            비밀번호 찾기
+          </button>
+        </router-link>
       </form>
         </div>
      

@@ -64,20 +64,23 @@ public class PostController {
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
-                                        @RequestParam(value = "removeImage", required = false) Boolean removeImage) {
-        String imagePath = null;
+                                        @RequestParam(value = "origin", required = false) Boolean origin) {
 
-        if (image != null) {
+        String imagePath = null;
+        System.out.println("===========================");
+        System.out.println(image);
+        Post postDetails;
+
+        if (image!=null) {
             imagePath = saveImage(image);
         }
-
-        Post postDetails = Post.builder()
+        postDetails = Post.builder()
                 .title(title)
                 .content(content)
                 .imagePath(imagePath)
                 .build();
 
-        Post updatedPost = postService.updatePost(id, postDetails, removeImage);
+        Post updatedPost = postService.updatePost(id, postDetails, origin);
 
         return ResponseEntity.ok(updatedPost);
     }

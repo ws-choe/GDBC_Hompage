@@ -4,14 +4,31 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <div v-if="post.imagePath">
-      <img
-        class="post-image"
-        :src="`/uploads/${post.imagePath}`"
-        alt="게시물 이미지"
-      />
+      <template v-if="isImage(post.imagePath)">
+        <img
+          class="post-image"
+          :src="`/uploads/${post.imagePath}`"
+          alt="게시물 이미지"
+        />
+        <button
+          @click="downloadImage(post.imagePath)"
+          class="btn btn-secondary"
+        >
+          파일 다운로드
+        </button>
+      </template>
+      <template v-else>
+        <p>첨부된 문서: {{ getFileName(post.imagePath) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath}`"
+          target="_blank"
+          class="btn btn-secondary"
+          >문서 다운로드</a
+        >
+      </template>
     </div>
     <div v-else>
-      <p>이미지가 없습니다</p>
+      <p>파일이 없습니다</p>
     </div>
     <button @click="back">뒤로가기</button>
     <div v-if="isAuthor">
@@ -19,7 +36,11 @@
       <button @click="deletePost" class="btn btn-danger">삭제</button>
     </div>
     <div>
-      <textarea v-model="comment" placeholder="댓글을 작성하세요..." rows="4"></textarea>
+      <textarea
+        v-model="comment"
+        placeholder="댓글을 작성하세요..."
+        rows="4"
+      ></textarea>
       <button @click="submitComment" class="btn btn-primary">댓글 달기</button>
     </div>
     <div class="comments">
@@ -27,7 +48,8 @@
       <div v-for="comment in comments" :key="comment.id" class="comment-item">
         <p>{{ comment.content }}</p>
         <p>
-          <strong>작성자:</strong> {{ comment.author.username }} | <strong>작성일:</strong>
+          <strong>작성자:</strong> {{ comment.author.username }} |
+          <strong>작성일:</strong>
           {{ formatDate(comment.createdAt) }}
         </p>
         <button
@@ -46,11 +68,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "@/store/SignUp";
-import { storeToRefs } from "pinia";
+import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
+import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/store/SignUp';
+import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const router = useRouter();
@@ -58,57 +80,73 @@ const userStore = useUserStore();
 const { isLoggedIn, id: userId } = storeToRefs(userStore);
 
 const post = ref({
-  title: "",
-  content: "",
+  title: '',
+  content: '',
   id: 0,
   userId: 0,
-  image: "", // 이미지 파일명 추가
+  imagePath: '', // 이미지 파일명 추가
 });
 const comments = ref([]);
-const comment = ref("");
-const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId.value);
+const comment = ref('');
+const isAuthor = computed(
+  () => isLoggedIn.value && post.value.userId === userId.value
+);
+
+// 이미지 파일인지 확인하는 함수
+const isImage = (filename) => {
+  const extension = filename.split('.').pop().toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'gif','jfif'].includes(extension);
+};
+
+// 파일 이름만 추출하는 함수
+const getFileName = (filename) => {
+  return filename.split('/').pop();
+};
 
 const fetchPostDetails = async () => {
   try {
     await axios.put(`/posts/${route.params.id}/view`);
-    
+
     const response = await axios.get(`/posts/${route.params.id}`);
     post.value = response.data;
-    console.log("Post Data:", post.value); // 응답 데이터 확인
+    console.log('Post Data:', post.value); // 응답 데이터 확인
 
     const commentsResponse = await axios.get(
       `/posts/${route.params.id}/comments`
     );
-    console.log("Comments Data:", commentsResponse.data);
+    console.log('Comments Data:', commentsResponse.data);
     comments.value = commentsResponse.data;
   } catch (error) {
-    console.error("Error fetching post details:", error);
+    console.error('Error fetching post details:', error);
   }
 };
 
 const editPost = () => {
-  router.push({ name: "ModPrRecruitmentNotice", params: { id: route.params.id } });
+  router.push({
+    name: 'ModPrRecruitmentNotice',
+    params: { id: route.params.id },
+  });
 };
 
 const back = () => {
-  router.push({ name: "RecruitmentNotice" });
+  router.push({ name: 'RecruitmentNotice' });
 };
 
 const deletePost = async () => {
-  if (!confirm("정말로 이 게시글을 삭제하시겠습니까?")) return;
+  if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
 
   try {
     await axios.delete(`/posts/${post.value.id}`);
-    router.push({ name: "RecruitmentNotice" }); // 게시글 목록 페이지로 이동
+    router.push({ name: 'RecruitmentNotice' }); // 게시글 목록 페이지로 이동
   } catch (error) {
-    console.error("Error deleting post:", error);
-    alert("게시글 삭제 중 오류가 발생했습니다.");
+    console.error('Error deleting post:', error);
+    alert('게시글 삭제 중 오류가 발생했습니다.');
   }
 };
 
 const submitComment = async () => {
   if (!comment.value.trim()) {
-    alert("댓글 내용을 입력해 주세요.");
+    alert('댓글 내용을 입력해 주세요.');
     return;
   }
 
@@ -117,11 +155,11 @@ const submitComment = async () => {
       content: comment.value,
       authorId: userId.value, // 로그인한 사용자 ID
     });
-    comment.value = ""; // 댓글 입력 필드 초기화
+    comment.value = ''; // 댓글 입력 필드 초기화
     fetchPostDetails(); // 댓글 리스트 갱신
   } catch (error) {
-    console.error("Error submitting comment:", error);
-    alert("댓글 작성 중 오류가 발생했습니다.");
+    console.error('Error submitting comment:', error);
+    alert('댓글 작성 중 오류가 발생했습니다.');
   }
 };
 
@@ -130,20 +168,26 @@ const deleteComment = async (commentId) => {
     await axios.delete(`/posts/${post.value.id}/comments/${commentId}`);
     fetchPostDetails(); // 댓글 리스트 갱신
   } catch (error) {
-    console.error("Error deleting comment:", error);
-    alert("댓글 삭제 중 오류가 발생했습니다.");
+    console.error('Error deleting comment:', error);
+    alert('댓글 삭제 중 오류가 발생했습니다.');
   }
+};
+
+//다운로드 이벤트 추가 최원석
+const downloadImage = (filename) => {
+  const url = `/posts/download/${filename}`;
+  window.open(url, '_blank'); // 새 탭에서 다운로드
 };
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 };
 
 const logout = () => {
   userStore.isLoggedIn = false;
   userStore.isAdmin = false;
-  router.push({ name: "Home" });
+  router.push({ name: 'Home' });
 };
 
 // 초기 데이터 로드
@@ -152,6 +196,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

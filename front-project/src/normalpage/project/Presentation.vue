@@ -158,7 +158,7 @@ const filteredPosts = ref([]);
 
 const fetchPosts = async () => {
   try {
-    const response = await axios.get("/presentaion", {
+    const response = await axios.get("/presentation", {
       params: { page: currentPage.value },
     });
     posts.value = response.data.posts;

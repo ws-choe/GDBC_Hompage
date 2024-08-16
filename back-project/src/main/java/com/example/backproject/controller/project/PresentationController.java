@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/presentaion")
-public class PresentaionController {
+@RequestMapping("/presentation")
+public class PresentationController {
 
     @Autowired
     private PresentaionSevice postService;

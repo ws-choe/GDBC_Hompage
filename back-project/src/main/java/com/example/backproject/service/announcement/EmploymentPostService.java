@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EmploymentPostService {
 
@@ -18,18 +20,21 @@ public class EmploymentPostService {
         return employmentPostRepository.save(post);
     }
 
-    public EmploymentPost updatePost(Integer id, EmploymentPost postDetails, Boolean removeImage) {
-        EmploymentPost existingPost = employmentPostRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found")); // Use orElseThrow directly
 
-        existingPost.setTitle(postDetails.getTitle());
-        existingPost.setContent(postDetails.getContent());
-        if (removeImage != null && removeImage) {
-            existingPost.setImagePath(null);
+    public EmploymentPost updatePost(Integer id, EmploymentPost postDetails, boolean origin) {
+        Optional<EmploymentPost> existingPostOpt = employmentPostRepository.findById(id);
+        if (existingPostOpt.isPresent()) {
+            EmploymentPost existingPost = existingPostOpt.get();
+            existingPost.setTitle(postDetails.getTitle());
+            existingPost.setContent(postDetails.getContent());
+
+            if(!origin){
+                existingPost.setImagePath(postDetails.getImagePath());
+            }
+            return employmentPostRepository.save(existingPost);
         } else {
-            existingPost.setImagePath(postDetails.getImagePath());
+            throw new RuntimeException("Post not found");
         }
-        return employmentPostRepository.save(existingPost);
     }
 
     public void deletePost(Integer id) {

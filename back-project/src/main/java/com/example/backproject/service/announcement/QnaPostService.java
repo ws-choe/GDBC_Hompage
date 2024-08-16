@@ -19,15 +19,14 @@ public class QnaPostService {
         return qnaPostRepository.save(post);
     }
 
-    public QnaPost updatePost(Integer id, QnaPost postDetails, Boolean removeImage) {
+    public QnaPost updatePost(Integer id, QnaPost postDetails, boolean origin) {
         Optional<QnaPost> existingPostOpt = qnaPostRepository.findById(id);
         if (existingPostOpt.isPresent()) {
             QnaPost existingPost = existingPostOpt.get();
             existingPost.setTitle(postDetails.getTitle());
             existingPost.setContent(postDetails.getContent());
-            if (removeImage != null && removeImage) {
-                existingPost.setImagePath(null);
-            } else {
+
+            if(!origin){
                 existingPost.setImagePath(postDetails.getImagePath());
             }
             return qnaPostRepository.save(existingPost);

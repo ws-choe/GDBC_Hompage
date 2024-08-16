@@ -23,16 +23,26 @@
         ></textarea>
       </div>
       <div class="form-group">
-        <label for="image">이미지:</label>
-        <input type="file" id="image" class="form-control" @change="handleImageChange" />
-        <div v-if="post.image">
-          <img
-            :src="`/uploads/${post.image}`"
-            alt="게시물 이미지"
-            class="post-image"
+          <label for="image">이미지:</label>
+          <input
+            type="file"
+            class="form-control"
+            @change="handleImageChange"
           />
+          
+          <div v-if="imagePreview">
+          <img :src="imagePreview" alt="미리보기" width="200" />
           <button type="button" @click="removeImage">이미지 제거</button>
-        </div>
+          </div>
+          <div v-else>
+            <img
+              v-if="post.imagePath"
+              :src="`/uploads/${post.imagePath}`"
+              alt="게시물 이미지"
+              class="post-image"
+            />
+            <button v-if="post.imagePath" type="button" @click="removeImage">이미지 제거</button>
+          </div>        
       </div>
       <button type="submit" class="btn btn-primary">수정하기</button>
     </form>
@@ -52,8 +62,9 @@ const post = ref({
   content: "",
   image: "",
 });
-
-const selectedImage = ref(null);
+const image = ref(null);
+const imagePreview = ref(null);
+const origin = ref(true);
 
 const fetchPost = async (id) => {
   try {
@@ -65,31 +76,46 @@ const fetchPost = async (id) => {
 };
 
 const handleImageChange = (event) => {
-  selectedImage.value = event.target.files[0];
+  const file = event.target.files[0];
+    if (file) {
+      image.value = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imagePreview.value = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      post.value.imagePath=image.value;
+      origin.value=false;
+    }
 };
 
 const removeImage = () => {
-  post.value.image = null;
+  post.value.imagePath=null;
+  imagePreview.value=null;
+  origin.value=false;
 };
 
 const handleSubmit = async () => {
   const formData = new FormData();
-  formData.append("title", post.value.title);
-  formData.append("content", post.value.content);
-  formData.append("image", selectedImage.value);
-  formData.append("removeImage", post.value.image ? "false" : "true");
-
-  try {
-    await axios.put(`/posts/${route.params.id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    alert("게시물이 수정되었습니다.");
-    router.push({ name: "DetRecruitmentNotice", params: { id: route.params.id } });
-  } catch (error) {
-    console.error("Error updating post:", error);
-  }
+    formData.append('title', post.value.title);
+    formData.append('content', post.value.content);
+    if(post.value.imagePath!=null){
+      formData.append('image', post.value.imagePath);
+    }
+    formData.append('origin', origin.value);
+    console.log(origin.value);
+    
+    try {
+      await axios.put(`/posts/${route.params.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      alert('게시물이 수정되었습니다.');
+      router.push({ name: "DetRecruitmentNotice", params: { id: route.params.id } });
+    } catch (error) {
+      console.error('게시물 수정 오류:', error);
+    }
 };
 
 onMounted(() => {

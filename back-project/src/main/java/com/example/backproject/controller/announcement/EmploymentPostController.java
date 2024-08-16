@@ -1,6 +1,7 @@
 package com.example.backproject.controller.announcement;
 
 import com.example.backproject.entity.announcement.EmploymentPost;
+import com.example.backproject.entity.announcement.Post;
 import com.example.backproject.service.announcement.EmploymentPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,40 +56,23 @@ public class EmploymentPostController {
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
-                                        @RequestParam(value = "removeImage", required = false) Boolean removeImage) {
-        // 기존 게시물 조회
-        EmploymentPost existingPost = postService.getPostById(id);
-        if (existingPost == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Post not found with id: " + id);
-        }
+                                        @RequestParam(value = "origin", required = false) Boolean origin) {
 
-        // 새로운 이미지가 업로드되었는지 확인
-        String imagePath = existingPost.getImagePath(); // 기존 이미지 경로를 기본으로 설정
+        String imagePath = null;
+        System.out.println("===========================");
+        System.out.println(image);
+        EmploymentPost postDetails;
 
-        if (image != null) {
-            // 새 이미지가 업로드된 경우 기존 이미지 삭제 후 새 이미지 저장
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
+        if (image!=null) {
             imagePath = saveImage(image);
-        } else if (removeImage != null && removeImage) {
-            // 이미지 제거 요청이 있으면 기존 이미지 삭제
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
-            imagePath = null; // 이미지 경로를 null로 설정
         }
-
-        // 업데이트할 게시물 세부 정보 설정
-        EmploymentPost postDetails = EmploymentPost.builder()
+        postDetails = EmploymentPost.builder()
                 .title(title)
                 .content(content)
                 .imagePath(imagePath)
                 .build();
 
-        // 게시물 업데이트
-        EmploymentPost updatedPost = postService.updatePost(id, postDetails, removeImage);
+        EmploymentPost updatedPost = postService.updatePost(id, postDetails, origin);
 
         return ResponseEntity.ok(updatedPost);
     }

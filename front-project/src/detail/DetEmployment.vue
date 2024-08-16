@@ -4,14 +4,31 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <div v-if="post.imagePath">
-      <img
-        class="post-image"
-        :src="`/uploads/${post.imagePath}`"
-        alt="게시물 이미지"
-      />
+      <template v-if="isImage(post.imagePath)">
+        <img
+          class="post-image"
+          :src="`/uploads/${post.imagePath}`"
+          alt="게시물 이미지"
+        />
+        <button
+          @click="downloadImage(post.imagePath)"
+          class="btn btn-secondary"
+        >
+          파일 다운로드
+        </button>
+      </template>
+      <template v-else>
+        <p>첨부된 문서: {{ getFileName(post.imagePath) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath}`"
+          target="_blank"
+          class="btn btn-secondary"
+          >문서 다운로드</a
+        >
+      </template>
     </div>
     <div v-else>
-      <p>이미지가 없습니다</p>
+      <p>파일이 없습니다</p>
     </div>
     <button @click="back">뒤로가기</button>
     <div v-if="isAuthor">
@@ -62,11 +79,23 @@ const post = ref({
   content: "",
   id: 0,
   userId: 0,
-  image: "", // 이미지 파일명 추가
+  imagePath: "", // 이미지 파일명 추가
 });
 const comments = ref([]);
 const comment = ref("");
 const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId.value);
+
+// 이미지 파일인지 확인하는 함수
+const isImage = (filename) => {
+  const extension = filename.split('.').pop().toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'gif','jfif'].includes(extension);
+};
+
+// 파일 이름만 추출하는 함수
+const getFileName = (filename) => {
+  return filename.split('/').pop();
+};
+
 
 const fetchPostDetails = async () => {
   try {
@@ -123,6 +152,12 @@ const submitComment = async () => {
     console.error("Error submitting comment:", error);
     alert("댓글 작성 중 오류가 발생했습니다.");
   }
+};
+
+//다운로드 이벤트 추가 최원석
+const downloadImage = (filename) => {
+  const url = `/posts/download/${filename}`;
+  window.open(url, '_blank'); // 새 탭에서 다운로드
 };
 
 const deleteComment = async (commentId) => {

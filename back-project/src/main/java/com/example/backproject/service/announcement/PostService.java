@@ -20,15 +20,14 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post updatePost(Integer id, Post postDetails, Boolean removeImage) {
+    public Post updatePost(Integer id, Post postDetails, boolean origin) {
         Optional<Post> existingPostOpt = postRepository.findById(id);
         if (existingPostOpt.isPresent()) {
             Post existingPost = existingPostOpt.get();
             existingPost.setTitle(postDetails.getTitle());
             existingPost.setContent(postDetails.getContent());
-            if (removeImage != null && removeImage) {
-                existingPost.setImagePath(null);
-            } else {
+
+            if(!origin){
                 existingPost.setImagePath(postDetails.getImagePath());
             }
             return postRepository.save(existingPost);

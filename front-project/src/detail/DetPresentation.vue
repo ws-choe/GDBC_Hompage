@@ -11,23 +11,43 @@
        </div>
 
      <!-- 게시글 상세 내용 -->
-     <div class="post-line"></div>
-       <div class="post-detail" v-if="post.title">
-         <h1 class="post-title">{{ post.title }}</h1>
-         <div class="post-subtitle">
-           <p class="created">등록일 : {{ formatDate(post.created_at) }}</p>
-           <p>조회수 : {{ post.views }}</p>
-         </div>
-         <div class="post-line"></div>
-         <p class="upload-label">첨부파일</p>
-         <div class="post-line"></div>
-
-       <div v-if="post.imagePath">
-         <img class="post-image" :src="`/uploads/${post.imagePath}`" alt="게시물 이미지">
-       </div>
-       <div v-else>
-         <p>이미지가 없습니다</p>
-       </div>
+    <div class="post-line"></div>
+    <div class="post-detail" v-if="post.title">
+      <h1 class="post-title">{{ post.title }}</h1>
+      <div class="post-subtitle">
+        <p class="created">등록일 : {{ formatDate(post.created_at) }}</p>
+        <p>조회수 : {{ post.views }}</p>
+      </div>
+      <div class="post-line"></div>
+      <p class="upload-label">첨부파일</p>
+      <div class="post-line"></div>
+      <div v-if="post.imagePath">
+        <template v-if="isImage(post.imagePath)">
+          <img
+            class="post-image"
+            :src="`/uploads/${post.imagePath}`"
+            alt="게시물 이미지"
+          />
+          <button
+            @click="downloadImage(post.imagePath)"
+            class="btn btn-secondary"
+          >
+            이미지 다운로드
+          </button>
+        </template>
+        <template v-else>
+          <p>첨부된 문서: {{ getFileName(post.imagePath) }}</p>
+          <a
+            :href="`/uploads/${post.imagePath}`"
+            target="_blank"
+            class="btn btn-secondary"
+            >문서 다운로드</a
+          >
+        </template>
+      </div>
+      <div v-else>
+        <p>첨부 파일이 없습니다</p>
+      </div>
        <p>{{ post.content }}</p>
        <div class="post-line"></div>
        <div class="button-group">
@@ -68,15 +88,26 @@ const comments = ref([]);
 const comment = ref('');
 const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId.value);
 
+// 이미지 파일인지 확인하는 함수
+const isImage = (filename) => {
+  const extension = filename.split('.').pop().toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'gif'].includes(extension);
+};
+
+// 파일 이름만 추출하는 함수
+const getFileName = (filename) => {
+  return filename.split('/').pop();
+};
+
 const fetchPostDetails = async () => {
  try {
-  await axios.put(`/presentaion/${route.params.id}/view`);
+  await axios.put(`/presentation/${route.params.id}/view`);
 
-   const response = await axios.get(`/presentaion/${route.params.id}`);
+   const response = await axios.get(`/presentation/${route.params.id}`);
    post.value = response.data;
    console.log('Post Data:', post.value); // 응답 데이터 확인
 
-   const commentsResponse = await axios.get(`/presentaion/${route.params.id}/comments`);
+   const commentsResponse = await axios.get(`/presentation/${route.params.id}/comments`);
    console.log('Comments Data:', commentsResponse.data);
    comments.value = commentsResponse.data;
  } catch (error) {
@@ -92,12 +123,18 @@ const deletePost = async () => {
  if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
 
  try {
-   await axios.delete(`/presentaion/${post.value.id}`);
+   await axios.delete(`/presentation/${post.value.id}`);
    router.push({ name: 'Presentation' }); // 게시글 목록 페이지로 이동
  } catch (error) {
    console.error('Error deleting post:', error);
    alert('게시글 삭제 중 오류가 발생했습니다.');
  }
+};
+
+//다운로드 이벤트 추가 최원석
+const downloadImage = (filename) => {
+  const url = `/posts/download/${filename}`;
+  window.open(url, '_blank'); // 새 탭에서 다운로드
 };
 
 const formatDate = (dateString) => {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +24,14 @@ public class EmailService {
             helper.setTo(emailDto.getTo());
             helper.setSubject(emailDto.getSubject());
             helper.setText(emailDto.getText(), true);
+//            if (emailDto.getAttachments() != null) {
+//                for (MultipartFile file : emailDto.getAttachments()) {
+//                    if (!file.isEmpty()) {
+//                        helper.addAttachment(file.getOriginalFilename(), file);
+//                    }
+//                }
+//            }
+
             mailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -101,7 +101,7 @@ try {
     }
   });
   alert('게시물이 수정되었습니다.');
-  router.push({ name: 'FinalReport', params: { id: route.params.id } });
+  router.push({ name: 'DetFinalReport', params: { id: route.params.id } });
 } catch (error) {
   console.error('Error updating post:', error);
 }

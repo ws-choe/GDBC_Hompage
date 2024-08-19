@@ -61,5 +61,4 @@ public class CodeService {
         Pageable pageable = PageRequest.of(page - 1, limit);
         return postRepository.findAll(pageable);
     }
-
 }

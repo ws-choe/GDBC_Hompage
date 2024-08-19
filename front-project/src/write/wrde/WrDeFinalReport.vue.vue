@@ -66,18 +66,19 @@
  const selectedFiles = ref([]);
  
  const handleFileChange = (event) => {
-   const files = event.target.files;
-   selectedFiles.value = Array.from(files);
- 
-   if (files.length > 0) {
-     const file = files[0];
-     const reader = new FileReader();
-     reader.onload = (e) => {
-       imagePreview.value = e.target.result;
-     };
-     reader.readAsDataURL(file);
-   }
- };
+  const files = event.target.files;
+  selectedFiles.value = Array.from(files);
+
+  if (files.length > 0) {
+    const file = files[0];
+    image.value = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+};
  
  const fetchPost = async (id) => {
    try {

@@ -61,5 +61,4 @@ public class FinalReportService {
         Pageable pageable = PageRequest.of(page - 1, limit);
         return postRepository.findAll(pageable);
     }
-
 }

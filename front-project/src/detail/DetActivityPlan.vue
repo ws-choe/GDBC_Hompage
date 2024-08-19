@@ -114,7 +114,7 @@ const post = ref({
   content: '',
   id: 0,
   userId: 0,
-  image: '', // 이미지 파일명 추가
+  imagePath: '', // 이미지 파일명 추가
 });
 const comments = ref([]);
 const comment = ref('');
@@ -125,7 +125,7 @@ const isAuthor = computed(
 // 이미지 파일인지 확인하는 함수
 const isImage = (filename) => {
   const extension = filename.split('.').pop().toLowerCase();
-  return ['jpg', 'jpeg', 'png', 'gif'].includes(extension);
+  return ['jpg', 'jpeg', 'png', 'gif','jfif'].includes(extension);
 };
 
 // 파일 이름만 추출하는 함수

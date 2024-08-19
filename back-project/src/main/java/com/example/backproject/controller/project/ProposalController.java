@@ -22,7 +22,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/proposal")
 public class ProposalController {
-
     @Autowired
     private ProposalService postService;
 
@@ -57,40 +56,23 @@ public class ProposalController {
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
-                                        @RequestParam(value = "removeImage", required = false) Boolean removeImage) {
-        // 기존 게시물 조회
-        Proposal existingPost = postService.getPostById(id);
-        if (existingPost == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Post not found with id: " + id);
-        }
+                                        @RequestParam(value = "origin", required = false) Boolean origin) {
 
-        // 새로운 이미지가 업로드되었는지 확인
-        String imagePath = existingPost.getImagePath(); // 기존 이미지 경로를 기본으로 설정
+        String imagePath = null;
+        System.out.println("===========================");
+        System.out.println(image);
+        Proposal postDetails;
 
-        if (image != null) {
-            // 새 이미지가 업로드된 경우 기존 이미지 삭제 후 새 이미지 저장
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
+        if (image!=null) {
             imagePath = saveImage(image);
-        } else if (removeImage != null && removeImage) {
-            // 이미지 제거 요청이 있으면 기존 이미지 삭제
-            if (imagePath != null) {
-                deleteImage(imagePath);
-            }
-            imagePath = null; // 이미지 경로를 null로 설정
         }
-
-        // 업데이트할 게시물 세부 정보 설정
-        Proposal postDetails = Proposal.builder()
+        postDetails = Proposal.builder()
                 .title(title)
                 .content(content)
                 .imagePath(imagePath)
                 .build();
 
-        // 게시물 업데이트
-        Proposal updatedPost = postService.updatePost(id, postDetails, removeImage);
+        Proposal updatedPost = postService.updatePost(id, postDetails, origin);
 
         return ResponseEntity.ok(updatedPost);
     }

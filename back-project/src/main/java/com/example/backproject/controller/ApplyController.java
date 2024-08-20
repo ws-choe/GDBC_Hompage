@@ -26,7 +26,7 @@ public class ApplyController {
     @Autowired
     private EmailService emailService;
 
-    @Value("${upload.path}")
+    @Value("/var/applyUpload")
     private String uploadPath;
 
     @PostMapping
@@ -50,7 +50,7 @@ public class ApplyController {
         emailDto.setSubject(String.format("%s님 입학 신청서",apply.getName()));
         emailDto.setText(String.format("신청서가 제출되었습니다:\n\n이름: %s\n이메일: %s\n전화번호: %s\n",
                 apply.getName(), apply.getEmail(), apply.getPhone()));
-//        emailDto.setAttachments(new MultipartFile[]{file1, file2});
+        emailDto.setAttachments(new String[]{file1Path, file2Path});
 
         try {
             emailService.sendMail(emailDto); // 이메일 전송

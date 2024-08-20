@@ -40,11 +40,18 @@ public class PostController {
     public ResponseEntity<?> createPost(@RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam("userId") Integer userId,
-                                        @RequestParam(value = "image", required = false) MultipartFile image) {
-        String imagePath = null;
+                                        @RequestParam(value = "image1", required = false) MultipartFile image1,
+                                        @RequestParam(value = "image2", required = false) MultipartFile image2
+    ) {
+        String imagePath1 = null;
 
-        if (image != null) {
-            imagePath = saveImage(image);
+        if (image1 != null) {
+            imagePath1 = saveImage(image1);
+        }
+        String imagePath2 = null;
+
+        if (image2 != null) {
+            imagePath2 = saveImage(image2);
         }
 
         Post post = Post.builder()
@@ -52,7 +59,8 @@ public class PostController {
                 .content(content)
                 .userId(userId)
                 .views(0)
-                .imagePath(imagePath)
+                .imagePath1(imagePath1)
+                .imagePath2(imagePath2)
                 .build();
         Post createdPost = postService.createPost(post);
 
@@ -63,24 +71,41 @@ public class PostController {
     public ResponseEntity<?> updatePost(@PathVariable("id") Integer id,
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
-                                        @RequestParam(value = "image", required = false) MultipartFile image,
-                                        @RequestParam(value = "origin", required = false) Boolean origin) {
+                                        @RequestParam(value = "image1", required = false) MultipartFile image1,
+                                        @RequestParam(value = "image2", required = false) MultipartFile image2,
+                                        @RequestParam(value = "origin1", required = false) boolean origin1,
+                                        @RequestParam(value = "origin2", required = false) boolean origin2) {
 
-        String imagePath = null;
+        Post post = postService.getPostById(id);
+
+        String imagePath1 = null;
+        String imagePath2 = null;
+
         System.out.println("===========================");
-        System.out.println(image);
+
+        System.out.println(post.getImagePath1());
+
         Post postDetails;
 
-        if (image!=null) {
-            imagePath = saveImage(image);
+        if(!origin1){
+            if(image1!=null) {
+                imagePath1 = saveImage(image1);
+            }
+        }
+
+        if(!origin2){
+            if(image2!=null) {
+                imagePath2 = saveImage(image2);
+            }
         }
         postDetails = Post.builder()
                 .title(title)
                 .content(content)
-                .imagePath(imagePath)
+                .imagePath1(imagePath1)
+                .imagePath2(imagePath2)
                 .build();
 
-        Post updatedPost = postService.updatePost(id, postDetails, origin);
+        Post updatedPost = postService.updatePost(id, postDetails,origin1,origin2);
 
         return ResponseEntity.ok(updatedPost);
     }

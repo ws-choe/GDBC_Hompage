@@ -10,6 +10,8 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 @RequiredArgsConstructor
 @Service
 public class EmailService {
@@ -24,13 +26,15 @@ public class EmailService {
             helper.setTo(emailDto.getTo());
             helper.setSubject(emailDto.getSubject());
             helper.setText(emailDto.getText(), true);
-//            if (emailDto.getAttachments() != null) {
-//                for (MultipartFile file : emailDto.getAttachments()) {
-//                    if (!file.isEmpty()) {
-//                        helper.addAttachment(file.getOriginalFilename(), file);
-//                    }
-//                }
-//            }
+
+            if (emailDto.getAttachments() != null) {
+                for (String filePath : emailDto.getAttachments()) {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        helper.addAttachment(file.getName(), file);
+                    }
+                }
+            }
 
             mailSender.send(message);
         } catch (MessagingException e) {

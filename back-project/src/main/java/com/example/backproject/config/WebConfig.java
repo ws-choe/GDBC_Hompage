@@ -25,8 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-//                .allowedOrigins("http://210.117.212.60") 리눅스 배포할 때 설정
-                .allowedOrigins("http://localhost") //로컬에서 테스트할 때 설정
+                .allowedOrigins("http://210.117.212.60")
+//                .allowedOrigins("http://localhost") //로컬에서 테스트할 때 설정
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

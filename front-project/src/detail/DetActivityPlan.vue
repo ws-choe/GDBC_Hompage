@@ -125,7 +125,7 @@ const isAuthor = computed(
 // 이미지 파일인지 확인하는 함수
 const isImage = (filename) => {
   const extension = filename.split('.').pop().toLowerCase();
-  return ['jpg', 'jpeg', 'png', 'gif','jfif'].includes(extension);
+  return ['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(extension);
 };
 
 // 파일 이름만 추출하는 함수
@@ -172,7 +172,6 @@ const downloadImage = (filename) => {
   const url = `/posts/download/${filename}`;
   window.open(url, '_blank'); // 새 탭에서 다운로드
 };
-
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);

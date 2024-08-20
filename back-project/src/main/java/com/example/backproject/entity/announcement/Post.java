@@ -40,7 +40,10 @@ public class Post {
     private LocalDateTime created_at;
 
     @Column(length = 255)
-    private String imagePath;
+    private String imagePath1;
+
+    @Column(length = 255)
+    private String imagePath2;
 
     @PrePersist
     protected void onCreate() {

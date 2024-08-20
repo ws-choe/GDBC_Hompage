@@ -3,24 +3,48 @@
   <div class="post-detail" v-if="post.title">
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
-    <div v-if="post.imagePath">
-      <template v-if="isImage(post.imagePath)">
+    <div v-if="post.imagePath1">
+      <template v-if="isImage(post.imagePath1)">
         <img
-          class="post-image"
-          :src="`/uploads/${post.imagePath}`"
+          class="post-image1"
+          :src="`/uploads/${post.imagePath1}`"
           alt="게시물 이미지"
         />
         <button
-          @click="downloadImage(post.imagePath)"
+          @click="downloadImage(post.imagePath1)"
           class="btn btn-secondary"
         >
           파일 다운로드
         </button>
       </template>
       <template v-else>
-        <p>첨부된 문서: {{ getFileName(post.imagePath) }}</p>
+        <p>첨부된 문서: {{ getFileName(post.imagePath1) }}</p>
         <a
-          :href="`/uploads/${post.imagePath}`"
+          :href="`/uploads/${post.imagePath1}`"
+          target="_blank"
+          class="btn btn-secondary"
+          >문서 다운로드</a
+        >
+      </template>
+    </div>
+    <div v-if="post.imagePath2">
+      <template v-if="isImage(post.imagePath2)">
+        <img
+          class="post-image2"
+          :src="`/uploads/${post.imagePath2}`"
+          alt="게시물 이미지"
+        />
+        <button
+          @click="downloadImage(post.imagePath2)"
+          class="btn btn-secondary"
+        >
+          파일 다운로드
+        </button>
+      </template>
+      <template v-else>
+        <p>첨부된 문서: {{ getFileName(post.imagePath2) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath2}`"
           target="_blank"
           class="btn btn-secondary"
           >문서 다운로드</a
@@ -84,7 +108,8 @@ const post = ref({
   content: '',
   id: 0,
   userId: 0,
-  imagePath: '', // 이미지 파일명 추가
+  imagePath1: '', // 이미지 파일명 추가
+  imagePath2:'',
 });
 const comments = ref([]);
 const comment = ref('');

@@ -23,11 +23,11 @@ export function usePostDetails() {
 
   const fetchPostDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/qnaposts/${route.params.id}`);
+      const response = await axios.get(`/qnaposts/${route.params.id}`);
       post.value = response.data;
       console.log('Post Data:', post.value); // 응답 데이터 확인
 
-      const commentsResponse = await axios.get(`http://localhost:3000/qnaposts/${route.params.id}/qnacomments`);
+      const commentsResponse = await axios.get(`/qnaposts/${route.params.id}/qnacomments`);
       console.log('Comments Data:', commentsResponse.data);
       comments.value = commentsResponse.data;
     } catch (error) {
@@ -43,7 +43,7 @@ export function usePostDetails() {
     if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
 
     try {
-      await axios.delete(`http://localhost:3000/qnaposts/${post.value.id}`);
+      await axios.delete(`/qnaposts/${post.value.id}`);
       router.push({ name: 'CourseReviews' }); // 게시글 목록 페이지로 이동
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -58,7 +58,7 @@ export function usePostDetails() {
     }
 
     try {
-      await axios.post(`http://localhost:3000/qnaposts/${post.value.id}/qnacomments`, {
+      await axios.post(`/qnaposts/${post.value.id}/qnacomments`, {
         content: comment.value,
         authorId: userId.value  // 로그인한 사용자 ID
       });
@@ -72,7 +72,7 @@ export function usePostDetails() {
 
   const deleteComment = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:3000/qnacomments/${commentId}`);
+      await axios.delete(`/comments/${commentId}`);
       fetchPostDetails(); // 댓글 리스트 갱신
     } catch (error) {
       console.error('Error deleting comment:', error);

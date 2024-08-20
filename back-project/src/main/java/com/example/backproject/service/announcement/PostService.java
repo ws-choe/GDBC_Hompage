@@ -20,16 +20,19 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post updatePost(Integer id, Post postDetails, boolean origin) {
+    public Post updatePost(Integer id, Post postDetails,boolean origin1,boolean origin2 ) {
         Optional<Post> existingPostOpt = postRepository.findById(id);
         if (existingPostOpt.isPresent()) {
             Post existingPost = existingPostOpt.get();
             existingPost.setTitle(postDetails.getTitle());
             existingPost.setContent(postDetails.getContent());
-
-            if(!origin){
-                existingPost.setImagePath(postDetails.getImagePath());
+            if(!origin1) {
+                existingPost.setImagePath1(postDetails.getImagePath1());
             }
+            if(!origin2) {
+                existingPost.setImagePath2(postDetails.getImagePath2());
+            }
+
             return postRepository.save(existingPost);
         } else {
             throw new RuntimeException("Post not found");

@@ -15,7 +15,7 @@ export default function useTraining() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/posts', {
+      const response = await axios.get('/posts', {
         params: { page: currentPage.value }
       });
       posts.value = response.data.posts;

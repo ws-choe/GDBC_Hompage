@@ -10,9 +10,14 @@
       <input v-model="title" type="text" placeholder="제목" class="input" required />
       <textarea v-model="content" placeholder="내용" class="textarea" required></textarea>
       <div>
-        <label for="image-upload">첨부파일:</label>
-        <input id="image-upload" type="file" @change="handleFileChange" />
-        <img v-if="imagePreview" :src="imagePreview" alt="미리보기" width="200" />
+        <label for="image-upload1">첨부파일 1:</label>
+        <input id="image-upload1" type="file" @change="handleFileChange1" />
+        <img v-if="imagePreview1" :src="imagePreview1" alt="미리보기1" width="200" />
+      </div>
+      <div>
+        <label for="image-upload2">첨부파일2:</label>
+        <input id="image-upload2" type="file" @change="handleFileChange2" />
+        <img v-if="imagePreview2" :src="imagePreview2" alt="미리보기2" width="200" />
       </div>
       <button type="submit" class="button">
         {{ isEditing ? "수정하기" : "작성하기" }}
@@ -41,21 +46,38 @@ const { isLoggedIn } = storeToRefs(userStore);
 
 const title = ref("");
 const content = ref("");
-const image = ref(null);
-const imagePreview = ref(null);
+const image1 = ref(null);
+const imagePreview1 = ref(null);
+
+const image2 = ref(null);
+const imagePreview2 = ref(null);
+
 const isEditing = ref(false);
 
-const handleFileChange = (event) => {
+const handleFileChange1 = (event) => {
   const file = event.target.files[0];
   if (file) {
-    image.value = file;
+    image1.value = file;
     const reader = new FileReader();
     reader.onload = (e) => {
-      imagePreview.value = e.target.result;
+      imagePreview1.value = e.target.result;
     };
     reader.readAsDataURL(file);
   }
 };
+
+const handleFileChange2 = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    image2.value = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview2.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
 
 const fetchPost = async (id) => {
   try {
@@ -86,9 +108,13 @@ const submitPost = async () => {
   formData.append("title", title.value);
   formData.append("content", content.value);
   formData.append("userId", userStore.id);
-  if (image.value) {
-    formData.append("image", image.value);
+  if (image1.value) {
+    formData.append("image1", image1.value);
   }
+  if (image2.value) {
+    formData.append("image2", image2.value);
+  }
+
 
   try {
     if (isEditing.value) {

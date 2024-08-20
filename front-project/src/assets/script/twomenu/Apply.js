@@ -15,7 +15,7 @@ export default function useFormHandler() {
   });
 
   const handleFileChange = (event, fileKey) => {
-    form.value[fileKey] = event.target.files[0];
+    const file = event.target.files[0];
     if (file) {
       form.value[fileKey] = file; // 파일을 form에 저장
     }
@@ -43,7 +43,7 @@ export default function useFormHandler() {
       });
       console.log('Submission successful:', response.data);
       alert('신청서 접수 되었습니다.');
-      window.location.href = 'http://localhost/'; //배포시 실제 주소로 변경
+      window.location.href = 'http://gdbc.mirae.network/'; //배포시 실제 주소로 변경
     } catch (error) {
       console.error('Error submitting form:', error);
     }

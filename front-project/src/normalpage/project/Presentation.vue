@@ -43,7 +43,7 @@
             color="#406E43"
           >
             <title id="searchIconTitle">Search</title>
-            <5l2h d="M14.4121122,14.4121122 L20,20" />
+            <path d="M14.4121122,14.4121122 L20,20" />
             <circle cx="10" cy="10" r="6" />
           </svg>
         </button>
@@ -86,7 +86,7 @@
               post.title
             }}</router-link>
           </td>
-          <td>{{ post.userId }}</td>
+          <td>{{ post.user.username }}</td>
           <td>{{ formatDate(post.created_at) }}</td>
           <td>{{ post.views }}</td>
         </tr>
@@ -110,7 +110,7 @@
           />
         </svg>
       </button>
-      <span
+      <span  class="pagw"
         v-for="page in totalPages"
         :key="page"
         @click="setPage(page)"
@@ -156,14 +156,15 @@ const searchTerm = ref("");
 const category = ref("title");
 const filteredPosts = ref([]);
 
-const fetchPosts = async () => {
+const fetchPosts = async (kw, category) => {
   try {
     const response = await axios.get("/presentation", {
-      params: { page: currentPage.value },
+      params: { page: currentPage.value, kw:kw, category:category},
     });
-    posts.value = response.data.posts;
+    console.log('Posts API Response:', response); // 응답 데이터 구조 확인
+    filteredPosts.value = response.data.posts;
     totalPages.value = response.data.totalPages;
-    applyFilter();
+    searchTerm.value = response.data.kw;
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -172,20 +173,20 @@ const fetchPosts = async () => {
 const prevPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--;
-    fetchPosts();
+    fetchPosts(searchTerm.value, category.value);
   }
 };
 
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
-    fetchPosts();
+    fetchPosts(searchTerm.value, category.value);
   }
 };
 
 const setPage = (page) => {
   currentPage.value = page;
-  fetchPosts();
+  fetchPosts(searchTerm.value, category.value);
 };
 
 const handleClick = async () => {
@@ -241,21 +242,8 @@ function formatDate(dateString) {
 }
 
 // 검색 기능
-const applyFilter = () => {
-  if (searchTerm.value.trim() === "") {
-    filteredPosts.value = posts.value;
-  } else {
-    filteredPosts.value = posts.value.filter((post) =>
-      post[category.value]
-        .toString()
-        .toLowerCase()
-        .includes(searchTerm.value.trim().toLowerCase())
-    );
-  }
-};
-
 const searchPosts = () => {
-  applyFilter();
+fetchPosts(searchTerm.value, category.value);
 };
 </script>
 

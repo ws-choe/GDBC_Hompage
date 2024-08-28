@@ -45,27 +45,27 @@
        <!-- 푸터 -->
      
  </template>
- 
- <script setup>
-   import { ref, onMounted } from 'vue';
- import { useRoute, useRouter } from 'vue-router';
- import axios from 'axios';
- import { useUserStore } from '@/store/SignUp';
- import { storeToRefs } from 'pinia';
- 
- const route = useRoute();
- const router = useRouter();
- const userStore = useUserStore();
- const { isLoggedIn } = storeToRefs(userStore);
- 
- const title = ref('');
- const content = ref('');
- const image = ref(null);
- const imagePreview = ref(null);
- const isEditing = ref(false);
- const selectedFiles = ref([]);
- 
- const handleFileChange = (event) => {
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
+import { useUserStore } from '@/store/SignUp';
+import { storeToRefs } from 'pinia';
+
+const route = useRoute();
+const router = useRouter();
+const userStore = useUserStore();
+const { isLoggedIn } = storeToRefs(userStore);
+
+const title = ref('');
+const content = ref('');
+const image = ref(null);
+const imagePreview = ref(null);
+const isEditing = ref(false);
+const selectedFiles = ref([]);
+
+const handleFileChange = (event) => {
   const files = event.target.files;
   selectedFiles.value = Array.from(files);
 
@@ -79,65 +79,66 @@
     reader.readAsDataURL(file);
   }
 };
- 
- const fetchPost = async (id) => {
-   try {
-     const response = await axios.get(`/code/${id}`);
-     title.value = response.data.title;
-     content.value = response.data.content;
-     // 이미지 미리보기 설정 (만약 이미지 URL을 제공하는 경우)
-     // imagePreview.value = response.data.imageURL;
-   } catch (error) {
-     console.error('Error fetching post:', error);
-   }
- };
- 
- const submitPost = async () => {
-   if (!isLoggedIn.value) {
-     alert('로그인이 필요합니다.');
-     router.push({ name: 'Login' });
-     return;
-   }
- 
-   if (!title.value || !content.value || !userStore.id) {
-     console.error('Missing required fields: title, content, or userId');
-     alert('제목, 내용, 또는 사용자 ID가 없습니다.');
-     return;
-   }
- 
-   const formData = new FormData();
-   formData.append('title', title.value);
-   formData.append('content', content.value);
-   formData.append('userId', userStore.id);
-   if (image.value) {
-     formData.append('image', image.value);
-   }
- 
-   try {
-     if (isEditing.value) {
-       await axios.put(`/code/${route.params.id}`, formData, {
-         headers: { 'Content-Type': 'multipart/form-data' }
-       });
-     } else {
-       await axios.post('/code', formData, {
-         headers: { 'Content-Type': 'multipart/form-data' }
-       });
-     }
-     router.push({ name: 'Code' });
-   } catch (error) {
-     console.error('Error submitting post:', error.response ? error.response.data : error.message);
-     alert('게시글 작성/수정 중 오류가 발생했습니다.');
-   }
- };
- 
- onMounted(() => {
-   if (route.params.id) {
-     isEditing.value = true;
-     fetchPost(route.params.id);
-   }
- });
- </script>
- 
- <style>
 
- </style>
+const fetchPost = async (id) => {
+  try {
+    const response = await axios.get(`/code/${id}`);
+    title.value = response.data.title;
+    content.value = response.data.content;
+    // 이미지 미리보기 설정 (만약 이미지 URL을 제공하는 경우)
+    // imagePreview.value = response.data.imageURL;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+  }
+};
+
+const submitPost = async () => {
+  if (!isLoggedIn.value) {
+    alert('로그인이 필요합니다.');
+    router.push({ name: 'Login' });
+    return;
+  }
+
+  if (!title.value || !content.value || !userStore.id) {
+    console.error('Missing required fields: title, content, or userId');
+    alert('제목, 내용, 또는 사용자 ID가 없습니다.');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('title', title.value);
+  formData.append('content', content.value);
+  formData.append('userId', userStore.id);
+  if (image.value) {
+    formData.append('image', image.value);
+  }
+
+  try {
+    if (isEditing.value) {
+      await axios.put(`/code/${route.params.id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    } else {
+      await axios.post('/code', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    }
+    router.push({ name: 'Code' });
+  } catch (error) {
+    console.error(
+      'Error submitting post:',
+      error.response ? error.response.data : error.message
+    );
+    alert('게시글 작성/수정 중 오류가 발생했습니다.');
+  }
+};
+
+onMounted(() => {
+  if (route.params.id) {
+    isEditing.value = true;
+    fetchPost(route.params.id);
+  }
+});
+</script>
+
+<style scoped  src="@/assets/style/writestyle/DeWrite.css"></style>

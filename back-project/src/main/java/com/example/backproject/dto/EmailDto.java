@@ -8,13 +8,13 @@ public class EmailDto {
     private String to;
     private String subject;
     private String text;
-    private MultipartFile[] attachments;
+    private String[] attachments;
 
     // 기본 생성자
     public EmailDto() {}
 
     // attachments 포함한 생성자
-    public EmailDto(String to, String subject, String text, MultipartFile[] attachments) {
+    public EmailDto(String to, String subject, String text, String[] attachments) {
         this.to = to;
         this.subject = subject;
         this.text = text;

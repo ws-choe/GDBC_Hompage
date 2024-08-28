@@ -26,5 +26,4 @@ public class Apply {
     private String content;
 
     private String file1Path;
-    private String file2Path;
 }

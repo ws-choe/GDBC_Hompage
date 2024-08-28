@@ -10,8 +10,3 @@
 </script>
 
 
-<style scoped src="@/assets/style/fourthmenu/RePro.css">
-
-
-
-</style>

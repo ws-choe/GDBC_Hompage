@@ -1,178 +1,125 @@
+.news-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: auto auto 200px auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+
 .news {
-   text-align:  left;
+
  }
  
 
  .centers{
-   text-align: left;
+  
+  font-weight: bold;
+  border-bottom: 2px solid #002D67;
+  padding-bottom: 10px;
+  margin-bottom: 200px;
+  display: inline-block;
+  width: 20%;
+ 
+ 
+   padding-top: 70px;
+   padding-left: 15px;
+   margin: auto;
+   
  }
- .buttonq {
-   padding: 10px;
+
+ /* 버튼 */
+.button {
+  margin: 50px 0 50px 0;
+ }
+ 
+.buttonq {
+ 
+   padding: 12px 30px;
    justify-content: center;
-   margin: 2rem;
-   background-color: rgb(255, 189, 46);
+   margin: 1rem;
+   background-color: #0060DB;
    border-radius: 30px;
    border-style: none;
    color: white;
-   width: 160px;
+   width: 100%;
+   text-decoration: none;
+   font-weight: bold;
    
  } 
 
- .buttonq:active {
-   background-color: rgb(245, 158, 8) ;
- }
+ .active {
+  background-color: #002C69;
+}
 
  .buttons button {
    margin: 0 0.5rem;
    padding: 0.5rem 1rem;
  }
- .news-items-container  {
 
-   display: flex;
-   justify-content: center; /* 수평 중앙 정렬 */
-   align-items: center; /* 수직 중앙 정렬 */
-   height: 100%; /* 컨테이너의 높이를 100%로 설정하여 가운데 정렬 */
- }
- 
- .news-items {
-   --s: 300px; /* 아이템 크기 */
-   --g: 10px;  /* 간격 */
-   --f: 1.5;   /* 확대 배율 */
-   display: grid;
-   gap: var(--g);
-   width: calc(3 * var(--s) + 2 * var(--g));
-   aspect-ratio: 1;
-   grid-template-columns: repeat(3, auto); /* 3열 그리드 */
- }
- 
- .news-item {
-  position: relative;
- }
- 
- .news-item img {
-   width: 0;
- height: 0;
- min-height: 100%;
- min-width: 100%;
- object-fit: cover;
- cursor: pointer;
- filter: grayscale(80%);
- transition: width .35s linear, height .35s linear, filter .35s linear;
- }
- .news-item img:hover {
-   filter: grayscale(0);
-   width: calc(var(--s) * var(--f));
-   height: calc(var(--s) * var(--f));
- }
- 
- .news-item p {
-   position: absolute;
-   bottom: 10px;
-   left: 50%;
-   transform: translateX(-50%);
-   background-color: rgba(0, 0, 0, 0.5);
-   color: white;
-   padding: 5px;
-   margin: 0;
-   text-align: center;
- }
-
- .news-item iframe {
-   width: 400px;
-   height: 300px;
-   display: flex;
- } 
- /* 첫 번째 줄 아이템에 대한 추가 스타일링 */
-.first-row:nth-child(1) {
- grid-column: 1; /* 첫 번째 열에 배치 */
+.buttonq:hover{
+  background-color: #003A94;
 }
 
-.first-row:nth-child(2) {
- grid-column: 2; /* 두 번째 열에 배치 */
- grid-column: span 2; /* 중앙 아이템을 두 개 열을 차지하게 설정 */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+
+
+
+h1 {
+  font-size: 2.2em;
 }
 
-.first-row:nth-child(3) {
- grid-column: 3; /* 세 번째 열에 배치 */
+h4 {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* 두 번째 줄 아이템 스타일링 */
-.news-item:not(.first-row) {
- /* 두 번째 줄 및 이후의 아이템에 대한 기본 스타일 유지 */
-}
-.gallery {
- --s: 150px; /* control the size */
- --g: 10px;  /* control the gap */
- --f: 1.5;   /* control the scale factor */
- 
- display: grid;
- gap: var(--g);
- width: calc(3*var(--s) + 2*var(--g));
- aspect-ratio: 1;
- grid-template-columns: repeat(3,auto);
-}
 
-.gallery > img {
- width: 0;
- height: 0;
- min-height: 100%;
- min-width: 100%;
- object-fit: cover;
- cursor: pointer;
- filter: grayscale(80%);
- transition: .35s linear;
+.flip {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 1em;
+    font-size: 15px;
+    width: 560px;
+    >.front,
+    >.back {
+      display: block;
+      color: rgb(253, 253, 253);
+      font-weight: 22px;
+      width: inherit;
+      background-size: cover!important;
+      background-position: center!important;
+      text-decoration: none;
+      height: 320px;
+      padding: 1em 2em;
+      border-radius: 10px;
+      
+  
+    }
 }
 
-.gallery img:hover{
- filter: grayscale(0);
- width:  calc(var(--s)*var(--f));
- height: calc(var(--s)*var(--f));
-}
-body {
- background-color: #222;
-}
-
-.container {
- max-width: 992px;
- margin: 0 auto;
- padding: 0 16px;
-}
-
-.grid {
- display: grid;
- grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
- gap: 24px;
- position: relative;
-}
-
-.background {
- background-size: cover;
- background-position: center center;
- background-repeat: no-repeat;
- height: 250px;
-
- &:nth-child(1) {
-    background-image: url('https://w.wallhaven.cc/full/x8/wallhaven-x8ye3z.jpg');
- }
-
- &:nth-child(2) {
-    background-image: url('https://w.wallhaven.cc/full/6o/wallhaven-6ozkzl.jpg');
- }
-
- &:nth-child(3) {
-    background-image: url('https://w.wallhaven.cc/full/wq/wallhaven-wqve97.png');
- }
-
- &:nth-child(4) {
-    background-image: url('https://w.wallhaven.cc/full/v9/wallhaven-v9v3r5.jpg');
- }
- 
- &:hover {
-    height: 100%;
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    left: 0;
-    top: 0;
- }
+.text-shadow {
+  background-color: rgba(0, 0, 0, 0.7);
+  
+text-shadow: 1px 1px rgba(0, 0, 0, 0.04), 
+2px 2px rgba(0, 0, 0, 0.04), 
+3px 3px rgba(0, 0, 0, 0.04), 
+4px 4px rgba(0, 0, 0, 0.04), 
+0.125rem 0.125rem rgba(0, 0, 0, 0.04), 
+6px 6px rgba(0, 0, 0, 0.04), 
+7px 7px rgba(0, 0, 0, 0.04), 
+8px 8px rgba(0, 0, 0, 0.04), 
+9px 9px rgba(0, 0, 0, 0.04), 
+0.3125rem 0.3125rem rgba(0, 0, 0, 0.04), 
+11px 11px rgba(0, 0, 0, 0.04), 
+12px 12px rgba(0, 0, 0, 0.04), 
+13px 13px rgba(0, 0, 0, 0.04), 
+14px 14px rgba(0, 0, 0, 0.04), 
+0.625rem 0.625rem rgba(0, 0, 0, 0.04), 
+16px 16px rgba(0, 0, 0, 0.04), 
+17px 17px rgba(0, 0, 0, 0.04), 
+18px 18px rgba(0, 0, 0, 0.04), 
+19px 19px rgba(0, 0, 0, 0.04), 
+1.25rem 1.25rem rgba(0, 0, 0, 0.04);
 }

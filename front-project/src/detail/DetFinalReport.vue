@@ -10,17 +10,98 @@
          <router-link class="nav-button" :to="{ name: 'Code' }">코드</router-link>
        </div>
 
-     <!-- 게시글 상세 내용 -->
-    <div class="post-line"></div>
-    <div class="post-detail" v-if="post.title">
-      <h1 class="post-title">{{ post.title }}</h1>
-      <div class="post-subtitle">
-        <p class="created">등록일 : {{ formatDate(post.created_at) }}</p>
-        <p>조회수 : {{ post.views }}</p>
+             <!-- 수정 삭제 -->
+             <div v-if="isAuthor" class="edit-delete-buttons">
+          <button @click="editPost" class="edit-btn" style="background: none; border: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+          </svg> 수정</button>
+          <button @click="deletePost" class="delete-btn" style="background: none; border: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+</svg> 삭제</button>
+        </div>
+      <!-- 게시글 상세 내용 -->
+      <div class="post-line"></div>
+        <div class="post-detail" v-if="post.title">
+          <h1 class="post-title">{{ post.title }}</h1>
+          <div class="post-subtitle">
+            <p class="created">등록일 : {{ formatDate(post.created_at) }}</p>
+            <p>조회수 : {{ post.views }}</p>
+          </div>
+          <div class="post-line"></div>
+          <div class="down" style="display: block; text-align: left; padding-left: 0;">
+  <p class="upload-label" style="text-align: left; margin-bottom: 10px;">첨부파일</p>
+
+  <div v-if="post.imagePath" style="margin-bottom: 10px; text-align: left;">
+    <template v-if="isImage(post.imagePath)">
+    </template>
+    <template v-else>
+      <div style="display: flex; align-items: center; margin-top: 5px; text-align: left;">
+        <p style="margin: 0; margin-right: 10px;">첨부 문서: {{ getFileName(post.imagePath) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath}`"
+          target="_blank"
+          class="btn btn-secondary"
+          style="display: inline-block;"
+        >다운로드</a>
       </div>
+    </template>
+  </div>
+
+  <div v-if="post.imagePath2" style="margin-bottom: 10px; text-align: left;">
+    <template v-if="isImage(post.imagePath2)">
+    </template>
+    <template v-else>
+      <div style="display: flex; align-items: center; margin-top: 5px; text-align: left;">
+        <p style="margin: 0; margin-right: 10px;">첨부 문서: {{ getFileName(post.imagePath2) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath2}`"
+          target="_blank"
+          class="btn btn-secondary"
+          style="display: inline-block;"
+        >다운로드</a>
+      </div>
+    </template>
+  </div>
+
+  <div v-if="post.imagePath3" style="margin-bottom: 10px; text-align: left;">
+    <template v-if="isImage(post.imagePath3)">
+    </template>
+    <template v-else>
+      <div style="display: flex; align-items: center; margin-top: 5px; text-align: left;">
+        <p style="margin: 0; margin-right: 10px;">첨부 문서: {{ getFileName(post.imagePath3) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath3}`"
+          target="_blank"
+          class="btn btn-secondary"
+          style="display: inline-block;"
+        >다운로드</a>
+      </div>
+    </template>
+  </div>
+
+  <div v-if="post.imagePath4" style="margin-bottom: 10px; text-align: left;">
+    <template v-if="isImage(post.imagePath4)">
+    </template>
+    <template v-else>
+      <div style="display: flex; align-items: center; margin-top: 5px; text-align: left;">
+        <p style="margin: 0; margin-right: 10px;">첨부 문서: {{ getFileName(post.imagePath4) }}</p>
+        <a
+          :href="`/uploads/${post.imagePath4}`"
+          target="_blank"
+          class="btn btn-secondary"
+          style="display: inline-block;"
+        >다운로드</a>
+      </div>
+    </template>
+  </div>
+</div>
+
+
+
+
       <div class="post-line"></div>
-      <p class="upload-label">첨부파일</p>
-      <div class="post-line"></div>
+
+      
       <div v-if="post.imagePath">
         <template v-if="isImage(post.imagePath)">
           <img
@@ -28,41 +109,53 @@
             :src="`/uploads/${post.imagePath}`"
             alt="게시물 이미지"
           />
-          <button
-            @click="downloadImage(post.imagePath)"
-            class="btn btn-secondary"
-          >
-            이미지 다운로드
-          </button>
         </template>
         <template v-else>
-          <p>첨부된 문서: {{ getFileName(post.imagePath) }}</p>
-          <a
-            :href="`/uploads/${post.imagePath}`"
-            target="_blank"
-            class="btn btn-secondary"
-            >문서 다운로드</a
-          >
         </template>
       </div>
-      <div v-else>
-        <p>첨부 파일이 없습니다</p>
+  <div v-if="post.imagePath2">
+        <template v-if="isImage(post.imagePath2)">
+          <img
+            class="post-image"
+            :src="`/uploads/${post.imagePath2}`"
+            alt="게시물 이미지"
+          />
+        </template>
+        <template v-else>
+        </template>
       </div>
-       <p>{{ post.content }}</p>
-       <div class="post-line"></div>
-       <div class="button-group">
-       <button type="submit" class="list-button" @click="$router.go(-1)">목록</button>
-       <div v-if="isAuthor" class="edit-delete-buttons">
-         <button @click="editPost" class="edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-           <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-         </svg>수정</button>
-         <button @click="deletePost" class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
- <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>삭제</button>
-       </div>
-     </div>
-     </div>
-     </div>
+      <div v-if="post.imagePath3">
+        <template v-if="isImage(post.imagePath3)">
+          <img
+            class="post-image"
+            :src="`/uploads/${post.imagePath3}`"
+            alt="게시물 이미지"
+          />
+        </template>
+        <template v-else>
+        </template>
+      </div>
+      <div v-if="post.imagePath4">
+        <template v-if="isImage(post.imagePath4)">
+          <img
+            class="post-image"
+            :src="`/uploads/${post.imagePath4}`"
+            alt="게시물 이미지"
+          />
+        </template>
+        <template v-else>
+        </template>
+      </div>
+
+        <div class="content-box">
+          <p style="margin: 0;">{{ post.content }}</p>
+        </div>
+        <div class="post-line"></div>
+        <div class="button-group">
+          <button type="submit" class="list-button" @click="$router.go(-1)">목록</button>
+      </div>
+      </div>
+      </div>
 </template>
 
 <script setup>
@@ -82,8 +175,10 @@ const post = ref({
  content: '',
  id: 0,
  userId: 0,
- imagePath: ''  // 이미지 파일명 추가
-});
+ imagePath: "", // 이미지 파일명 추가
+imagePath2:"",
+imagePath3:"",
+imagePath4:""});
 const comments = ref([]);
 const comment = ref('');
 const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId.value);
@@ -91,7 +186,7 @@ const isAuthor = computed(() => isLoggedIn.value && post.value.userId === userId
 // 이미지 파일인지 확인하는 함수
 const isImage = (filename) => {
   const extension = filename.split('.').pop().toLowerCase();
-  return ['jpg', 'jpeg', 'png', 'gif','jfif'].includes(extension);
+  return ['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(extension);
 };
 
 // 파일 이름만 추출하는 함수
@@ -102,7 +197,6 @@ const getFileName = (filename) => {
 const fetchPostDetails = async () => {
  try {
   await axios.put(`/finalreport/${route.params.id}/view`);
-
    const response = await axios.get(`/finalreport/${route.params.id}`);
    post.value = response.data;
    console.log('Post Data:', post.value); // 응답 데이터 확인
@@ -154,6 +248,4 @@ onMounted(() => {
 });
 </script>
 
-<style>
-
-</style>
+<style scoped src="@/assets/style/detailstyle/Detail.css"></style>

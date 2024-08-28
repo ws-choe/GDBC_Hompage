@@ -4,7 +4,7 @@
   <!-- 헤더 영역 메뉴바 끝 -->
 
   <!-- 중단 부분-->
-
+  <div class="project-container">
   <section id="admission-procedure" class="section">
     <h1 class="admission-title">입학 절차</h1>
     <div class="textline"></div>
@@ -37,6 +37,7 @@
       >
     </div>
   </section>
+  </div>
 
   <!-- footer 영억 시작 하단 -->
 

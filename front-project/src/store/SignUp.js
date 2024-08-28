@@ -125,6 +125,7 @@ export const useUserStore = defineStore('user', {
       this.isAdmin = false;
       this.id = null; // 로그아웃 시 ID도 초기화
       this.token = ''; // Clear token on logout
+      this.$reset();
       sessionStorage.removeItem('user'); // Remove user data from session storage
     },
     loadUserFromSession() {
@@ -149,3 +150,4 @@ export const useUserStore = defineStore('user', {
     ],
   },
 });
+

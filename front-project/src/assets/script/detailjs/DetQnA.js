@@ -23,11 +23,11 @@ export function usePostDetailLogic() {
 
   const fetchPostDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/freeboard/${route.params.id}`);
+      const response = await axios.get(`/freeboard/${route.params.id}`);
       post.value = response.data;
       console.log('Post Data:', post.value); // 응답 데이터 확인
 
-      const commentsResponse = await axios.get(`http://localhost:3000/freeboard/${route.params.id}/freeboardcomments`);
+      const commentsResponse = await axios.get(`/freeboard/${route.params.id}/comments`);
       console.log('Comments Data:', commentsResponse.data);
       comments.value = commentsResponse.data;
     } catch (error) {

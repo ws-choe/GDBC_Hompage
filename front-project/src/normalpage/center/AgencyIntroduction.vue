@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="first">
-      <h1>센터 소식</h1>
-      <h2 style="font-weight: bold">구로 디지털 훈련센터 소개</h2>
+      <h1>기관 소개</h1>
+      <div class="textline"></div>
       <section :class="{ 'slide-in': true, visible: firstSectionVisible }">
         <div class="qa-section">
           <div class="qa-item">
@@ -10,7 +10,7 @@
               Q. <strong>구로 디지털 훈련센터</strong>는 어떤 기관인가요?
             </h2>
             <p class="answer">
-              <strong>A. </strong> 구로디지털훈련센터는 훈련생 역량 수준별 IT 훈련과정과
+              <strong>A. </strong>구로디지털훈련센터는 훈련생 역량 수준별 IT 훈련과정과
               기업이 원하는 유연한 <strong>맞춤훈련과정</strong>을 운영합니다.
               구로디지털훈련센터는 도시형 산업단지인 <strong>서울디지털산업단지</strong>에
               위치하여 기업체와 훈련생 모두에게 뛰어난 접근성을 자랑합니다.
@@ -21,7 +21,8 @@
     </div>
 
     <div class="second">
-      <h1>센터 개요</h1>
+      <h1>센터 소개</h1>
+      <div class="textline"></div>
       <section
         v-for="(sectionGroup, groupIndex) in sectionGroups"
         :key="groupIndex"
@@ -39,9 +40,6 @@
           <div class="bubble-content" v-html="sectionGroup"></div>
         </div>
       </section>
-    </div>
-
-    <div class="third">
       <section
         class="carousel-section"
         @mousedown="startDrag"
@@ -94,4 +92,4 @@ export default {
 }
 </script>
 
-<style src="@/assets/style/firstmenu/Agency.css"></style>
+<style scoped src="@/assets/style/firstmenu/Agency.css"></style>

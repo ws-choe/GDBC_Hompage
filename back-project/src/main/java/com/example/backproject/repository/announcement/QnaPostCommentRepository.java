@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface QnaPostCommentRepository extends JpaRepository<QnaPostComment, Integer> {
     List<QnaPostComment> findByPostId(Integer postId);
+
 }

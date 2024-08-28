@@ -1,0 +1,162 @@
+.news-container {
+   width: 100%;
+   max-width: 1800px;
+   margin: 0 auto;
+   padding: 20px;
+   background-color: #fff;
+   
+ }
+ 
+ 
+ .news {
+ 
+  }
+  
+ 
+  .centers{
+   
+   font-weight: bold;
+   border-bottom: 2px solid #002D67;
+   padding-bottom: 10px;
+   margin-bottom: 200px;
+   display: inline-block;
+   width: 20%;
+  
+  
+    padding-top: 70px;
+    padding-left: 15px;
+    margin: auto;
+    
+  }
+ 
+  /* 버튼 */
+ .button {
+   margin: 50px 0 50px 0;
+  }
+  
+ .buttonq {
+  
+    padding: 12px 30px;
+    justify-content: center;
+    margin: 1rem;
+    background-color: #0060DB;
+    border-radius: 30px;
+    border-style: none;
+    color: white;
+    width: 100%;
+    text-decoration: none;
+    font-weight: bold;
+    
+  } 
+
+  .buttonz {
+    margin: 50px 0 50px 0;
+    background-color: #dbe2eb;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   }
+
+  .buttonw {
+  
+    padding: 12px 30px;
+    margin: 1rem;
+    background-color: #e9e9e9;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+    
+  } 
+ 
+  .active {
+   background-color: #002C69;
+ }
+ 
+  .buttons button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .buttonq:hover{
+    background-color: #003A94;
+  }
+ 
+ /* 사진 영상 라인 */
+ 
+ .news-items-container[data-v-fefe7f30] {
+  display: flex;
+  justify-content: center;
+
+  height: 100%;
+  margin: 50px 0 150px 0;
+  box-shadow: 2px 2px 4px 4px rgba(1, 1, 1, 0.25);
+
+  grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개의 아이템을 배치 */
+  gap: 20px; /* 아이템 간의 간격을 설정 */
+}
+
+ :root {
+  font-size: 14px;
+}
+
+
+P {
+  margin: 0;
+  
+  & + & {
+    margin-top: 2rem;
+  }
+}
+
+.wrapper {
+  float: right;
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  max-width: 70vw;
+  margin: 2rem;
+}
+
+.corners {
+  
+  min-height: 75px;
+  padding: 2.25rem;
+  background: linear-gradient(rgb(235, 235, 235), rgb(213, 213, 213));
+  font-weight: bold;
+}
+
+.corners--repeated-lines {
+  mask-image: 
+    linear-gradient(
+      135deg,
+      transparent 1.25rem, 
+      gold 0
+    ),
+    linear-gradient(
+      -135deg,
+      transparent .5rem, 
+      gold 0, gold .75rem,
+      transparent 0, transparent 1rem, 
+      gold 0, gold 1.25rem,
+      transparent 0, transparent 1.5rem, 
+      gold 0
+    ),
+    linear-gradient(
+      45deg,
+      transparent .5rem, 
+      gold 0, gold .75rem,
+      transparent 0, transparent 1rem, 
+      gold 0, gold 1.25rem,
+      transparent 0, transparent 1.5rem, 
+      gold 0
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 1.25rem, 
+      gold 0
+    );
+  mask-position: 0 0, 100% 0, 0 100%, 100% 100%;
+  mask-repeat: no-repeat;
+  mask-size: 51% 51%;
+}
+

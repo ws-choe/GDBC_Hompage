@@ -48,7 +48,7 @@
                <td>{{ post.id }}</td>
                <!-- 제목 클릭 시 상세 페이지로 이동 -->
                <td><router-link :to="{ name: 'DetFinalReport', params: { id: post.id } }">{{ post.title }}</router-link></td>
-               <td>{{ post.userId }}</td>
+               <td>{{ post.user.username }}</td>
                <td>{{ formatDate(post.created_at) }}</td>
                <td>{{ post.views }}</td>
              </tr>
@@ -62,7 +62,8 @@
                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
              </svg>
            </button>
-           <span v-for="page in totalPages" :key="page" @click="setPage(page)" :class="{'active-page': currentPage === page}">
+           <span class="pagw"
+           v-for="page in totalPages" :key="page" @click="setPage(page)" :class="{'active-page': currentPage === page}">
              {{ page }}
            </span>
            <button @click="nextPage" :disabled="currentPage === totalPages">
@@ -94,37 +95,38 @@
  const category = ref('title');
  const filteredPosts = ref([]);
  
- const fetchPosts = async () => {
-   try {
-     const response = await axios.get('/finalreport', {
-       params: { page: currentPage.value }
-     });
-     posts.value = response.data.posts;
-     totalPages.value = response.data.totalPages;
-     applyFilter();
-   } catch (error) {
-     console.error('Error fetching posts:', error);
-   }
- };
+ const fetchPosts = async (kw, category) => {
+  try {
+    const response = await axios.get("/finalreport", {
+      params: { page: currentPage.value, kw:kw, category:category},
+    });
+    console.log('Posts API Response:', response); // 응답 데이터 구조 확인
+    filteredPosts.value = response.data.posts;
+    totalPages.value = response.data.totalPages;
+    searchTerm.value = response.data.kw;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
  
  const prevPage = () => {
    if (currentPage.value > 1) {
      currentPage.value--;
-     fetchPosts();
+     fetchPosts(searchTerm.value, category.value);
    }
  };
  
  const nextPage = () => {
    if (currentPage.value < totalPages.value) {
      currentPage.value++;
-     fetchPosts();
+     fetchPosts(searchTerm.value, category.value);
  
    }
  };
  
  const setPage = (page) => {
    currentPage.value = page;
-   fetchPosts();
+   fetchPosts(searchTerm.value, category.value);
  };
 
  const handleClick = async () => {
@@ -180,19 +182,9 @@
  }
  
  // 검색 기능
- const applyFilter = () => {
-   if (searchTerm.value.trim() === '') {
-     filteredPosts.value = posts.value;
-   } else {
-     filteredPosts.value = posts.value.filter(post =>
-       post[category.value].toString().toLowerCase().includes(searchTerm.value.trim().toLowerCase())
-     );
-   }
- };
- 
- const searchPosts = () => {
-   applyFilter();
- };
+const searchPosts = () => {
+fetchPosts(searchTerm.value, category.value);
+};
  
  </script>
 

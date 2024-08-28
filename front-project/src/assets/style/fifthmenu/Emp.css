@@ -1,0 +1,271 @@
+ /* 전체 레이아웃 스타일 */
+  
+ .posts-list {
+  margin-top: 20px;
+}
+
+.post-item {
+  margin-bottom: 10px;
+}
+
+.post-item a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.post-item a:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.active-page {
+  font-weight: bold;
+  border: 1px solid red;
+  color: red !important;
+  padding: 9.7px 13px !important;
+  border-radius: none;
+}
+body .pagw {
+  padding: 10px;
+  margin: 0 5px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+
+.contact-inf {
+  display: flex;
+  gap: 12px;
+}
+
+.announcement-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.announcement-title {
+  text-align: left;
+  margin-top: 20px;
+}
+
+
+
+.active {
+  background-color: #e67e22;
+}
+
+.search-write-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #406E43;
+  border-radius: 50px;
+  padding: 5px 10px;
+  background-color: white;
+  width: 600px;
+}
+
+.category-select {
+  border: none;
+  background: none;
+  font-size: 16px;
+  margin-right: 10px;
+  text-align: center;
+  width: 130px;
+}
+
+.search-input {
+  border: none;
+  font-size: 16px;
+  outline: none;
+  flex-grow: 1;
+  margin-right: 10px;
+  appearance: none;
+  background: transparent;
+  height: 100%;
+}
+
+.search-container .search-input {
+  border: none !important;
+  font-size: 16px;
+  outline: none !important;
+  flex-grow: 1;
+  margin-right: 10px;
+  background: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0; /* Remove any padding */
+}
+
+.search-btn svg {
+  color: #406E43;
+  border: 2px;
+}
+
+
+.write {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.write svg {
+  color: #959595;
+  margin-right: 10px;
+}
+
+.write:hover {
+  color: black;
+}
+
+.posts-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-top: 2px solid #406E43;
+}
+
+.posts-table th {
+  border-bottom: 2px solid #406E43;
+  padding: 10px;
+  text-align: center;
+}
+
+.posts-table td {
+  border-bottom: 1px solid #EFEFEF;
+  padding: 10px;
+  text-align: center;
+}
+
+.posts-table td a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.posts-table td a:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  text-align: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination svg {
+  color: black;
+  font-weight: bold;
+}
+
+.project-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  }
+  
+  .project-title {
+  text-align: left;
+  margin-top: 20px;
+  }
+  
+  .announcement-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    }
+    
+    .announcement-title {
+    text-align: left;
+    margin-top: 20px;
+    }
+  
+  .nav-buttons {
+  display: flex;
+  margin: 50px 0 50px 0px;
+  }
+  
+  .project-container .nav-button {
+    display: block;
+    padding: 10px 20px;
+    margin: 0 20px 0 0;
+    background-color: #92AD68;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+  }
+  
+  .project-container .nav-button:hover {
+    background-color: #55855A;
+  }
+  
+  .project-container .active {
+    background-color: #3F6E42;
+  }
+  
+  .announcement-container .nav-button {
+  display: block;
+  padding: 10px 20px;
+  margin: 0 20px 0 0px;
+  background-color: #FACA4E;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  }
+  
+  .announcement-container .nav-button:hover {
+  background-color: #FF981B;
+  }
+  
+  .announcement-container .active {
+  background-color: #e67e22;
+  }
+
+  body .pagw {
+    padding: 10px;
+    margin: 0 5px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  

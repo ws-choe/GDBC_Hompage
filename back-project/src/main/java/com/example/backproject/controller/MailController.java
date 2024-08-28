@@ -39,8 +39,8 @@ public class MailController {
 
         String token = userService.createPasswordResetTokenForUser(email);
         if (token != null) {
-            EmailDto emailDto = new EmailDto(email, "Password Reset Request",
-                    "패스워드 재설정해 주세요. 접속 링크:\n" +
+            EmailDto emailDto = new EmailDto(email, "구로디지털부트캠프 - 비밀번호 변경 안내",
+                    "아래 접속 링크를 통해 패스워드 재설정해 주세요.\n" +
                             "http://localhost:80/user/change-password?token=" + token);
             try {
                 emailService.sendMail(emailDto);

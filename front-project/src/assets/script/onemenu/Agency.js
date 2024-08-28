@@ -121,8 +121,10 @@ export default {
       e.currentTarget.scrollLeft = this.scrollLeft - walk;
     },
     getSectionStyle(groupIndex) {
-      const colors = ['#f5a623', '#b7e4a1', '#a2d9ff']; // 연한 주황색, 연두색, 하늘색
+      const colors = ['#FFFAED', '#ECF0EC', '#E5EAF0']; // 연한 주황색, 연두색, 하늘색
       const borderRadius = '30px'; // 원하는 border-radius 값
+
+      
 
       return {
         'background-color': colors[groupIndex],

@@ -40,6 +40,15 @@ public class Presentation {
     @Column(length = 255)
     private String imagePath;
 
+    @Column(length = 255)
+    private String imagePath2;
+
+    @Column(length = 255)
+    private String imagePath3;
+
+    @Column(length = 255)
+    private String imagePath4;
+
     @PrePersist
     protected void onCreate() {
         created_at = LocalDateTime.now();

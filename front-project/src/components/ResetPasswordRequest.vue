@@ -3,13 +3,14 @@
     <h3 class="text-center">비밀번호 재설정하기</h3>
     <form @submit.prevent="resetPassword" class="mt-4">
       <div class="form-group">
-        <label for="email">이메일 주소를 입력하십시오.</label>
+        <label for="email">등록하신 이메일 주소를 입력해주세요.<br>비밀번호 재설정 링크를 포함한 이메일이 발송됩니다.</label>
         <input
           type="email"
           id="email"
           v-model="email"
           class="form-control"
           required
+          placeholder="이메일"
         />
       </div>
       <button type="submit" class="btn btn-primary btn-block">
@@ -37,7 +38,7 @@ export default {
         const response = await axios.post('/user/reset-password', {
           email: this.email,
         });
-        this.message = '발송 완료.';
+        this.message = '이메일이 발송되었습니다.';
       } catch (error) {
         this.message =
           error.response.data.message ||
@@ -48,6 +49,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* 필요에 따라 스타일 추가 */
-</style>
+<style scoped src="@/assets/style/Resetpw.css"></style>

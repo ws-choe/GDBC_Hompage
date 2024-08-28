@@ -40,19 +40,38 @@ public class PostController {
     public ResponseEntity<?> createPost(@RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam("userId") Integer userId,
-                                        @RequestParam(value = "image", required = false) MultipartFile image) {
+                                        @RequestParam(value = "image", required = false) MultipartFile image,
+                                        @RequestParam(value = "image2", required = false) MultipartFile image2,
+                                        @RequestParam(value = "image3", required = false) MultipartFile image3,
+                                        @RequestParam(value = "image4", required = false) MultipartFile image4) {
         String imagePath = null;
-
         if (image != null) {
             imagePath = saveImage(image);
         }
 
+        String imagePath2 = null;
+        if (image2 != null) {
+            imagePath2 = saveImage(image2);
+        }
+
+        String imagePath3 = null;
+        if (image3 != null) {
+            imagePath3 = saveImage(image3);
+        }
+
+        String imagePath4 = null;
+        if (image4 != null) {
+            imagePath4 = saveImage(image4);
+        }
         Post post = Post.builder()
                 .title(title)
                 .content(content)
                 .userId(userId)
                 .views(0)
                 .imagePath(imagePath)
+                .imagePath2(imagePath2)
+                .imagePath3(imagePath3)
+                .imagePath4(imagePath4)
                 .build();
         Post createdPost = postService.createPost(post);
 
@@ -64,23 +83,56 @@ public class PostController {
                                         @RequestParam("title") String title,
                                         @RequestParam("content") String content,
                                         @RequestParam(value = "image", required = false) MultipartFile image,
-                                        @RequestParam(value = "origin", required = false) Boolean origin) {
+                                        @RequestParam(value = "image2", required = false) MultipartFile image2,
+                                        @RequestParam(value = "image3", required = false) MultipartFile image3,
+                                        @RequestParam(value = "image4", required = false) MultipartFile image4,
+                                        @RequestParam(value = "origin", required = false) boolean origin,
+                                        @RequestParam(value = "origin2", required = false) boolean origin2,
+                                        @RequestParam(value = "origin3", required = false) boolean origin3,
+                                        @RequestParam(value = "origin4", required = false) boolean origin4) {
+
 
         String imagePath = null;
-        System.out.println("===========================");
-        System.out.println(image);
-        Post postDetails;
+        String imagePath2 = null;
+        String imagePath3 = null;
+        String imagePath4 = null;
 
-        if (image!=null) {
-            imagePath = saveImage(image);
+
+        if(!origin){
+            if(image!=null) {
+                imagePath = saveImage(image);
+            }
         }
+
+        if(!origin2){
+            if(image2!=null) {
+                imagePath2 = saveImage(image2);
+            }
+        }
+
+        if(!origin3){
+            if(image3!=null) {
+                imagePath3 = saveImage(image3);
+            }
+        }
+
+        if(!origin4){
+            if(image4!=null) {
+                imagePath4 = saveImage(image4);
+            }
+        }
+
+        Post postDetails;
         postDetails = Post.builder()
                 .title(title)
                 .content(content)
                 .imagePath(imagePath)
+                .imagePath2(imagePath2)
+                .imagePath3(imagePath3)
+                .imagePath4(imagePath4)
                 .build();
 
-        Post updatedPost = postService.updatePost(id, postDetails, origin);
+        Post updatedPost = postService.updatePost(id, postDetails,origin,origin2,origin3, origin4);
 
         return ResponseEntity.ok(updatedPost);
     }
@@ -117,13 +169,18 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllPosts(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+    public ResponseEntity<?> getAllPosts(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                         @RequestParam(value = "kw", defaultValue = "") String kw,
+                                         @RequestParam(value = "category", defaultValue = "") String category) {
         int limit = 10;
-        Page<Post> postPage = postService.getAllPosts(page, limit);
+
+        Page<Post> postPage = postService.getAllPosts(page, limit,kw, category);
         Map<String, Object> response = new HashMap<>();
         response.put("posts", postPage.getContent());
         response.put("totalPages", postPage.getTotalPages());
         response.put("currentPage", page);
+        response.put("kw",kw);
+
 
         return ResponseEntity.ok(response);
     }
@@ -133,6 +190,7 @@ public class PostController {
         Post post = postService.getPostById(id);
         return ResponseEntity.ok(post);
     }
+
 
     //다운로드 기능
     @GetMapping("/download/{filename:.+}")

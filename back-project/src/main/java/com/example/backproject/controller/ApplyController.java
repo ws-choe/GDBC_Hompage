@@ -26,21 +26,20 @@ public class ApplyController {
     @Autowired
     private EmailService emailService;
 
-    @Value("${upload.path}")
+    @Value("C:/upload")
     private String uploadPath;
 
     @PostMapping
     public ResponseEntity<Apply> createApply(
             @ModelAttribute Apply apply,
-            @RequestParam("file1") MultipartFile file1,
-            @RequestParam("file2") MultipartFile file2) {
+            @RequestParam(value = "file1", required = false) MultipartFile file1) {
 
-        // 파일 저장
-        String file1Path = saveImage(file1);
-        String file2Path = saveImage(file2);
+        String file1Path = null;
 
-        apply.setFile1Path(file1Path);
-        apply.setFile2Path(file2Path);
+        if(file1!=null) {
+            file1Path = saveImage(file1);
+            apply.setFile1Path(file1Path);
+        }
 
         Apply savedApply = applyService.saveApply(apply);
 
@@ -48,15 +47,16 @@ public class ApplyController {
         EmailDto emailDto = new EmailDto();
         emailDto.setTo("sinsaki7986@gmail.com"); // 관리자의 이메일 주소
         emailDto.setSubject(String.format("%s님 입학 신청서",apply.getName()));
-        emailDto.setText(String.format("신청서가 제출되었습니다:\n\n이름: %s\n이메일: %s\n전화번호: %s\n",
-                apply.getName(), apply.getEmail(), apply.getPhone()));
-//        emailDto.setAttachments(new MultipartFile[]{file1, file2});
+        emailDto.setText(String.format("%s님의 입학 신청서가 제출되었습니다:<br><br>이름: %s<br>이메일: %s<br>전화번호: %s<br>내용: %s<br>",
+                apply.getName(), apply.getName(), apply.getEmail(), apply.getPhone(), apply.getContent()));
+        if(file1 != null) {
+                emailDto.setAttachments(new String[]{file1Path});
+            }
 
         try {
             emailService.sendMail(emailDto); // 이메일 전송
         } catch (MessagingException e) {
             e.printStackTrace();
-            // 필요한 경우 적절한 오류 처리를 추가할 수 있습니다.
         }
         return new ResponseEntity<>(savedApply, HttpStatus.CREATED);
     }
@@ -78,4 +78,3 @@ public class ApplyController {
         return savePath.toString(); // 저장된 파일 경로를 반환
     }
 }
-

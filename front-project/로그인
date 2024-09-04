@@ -1,3 +1,0 @@
-/src/Modify/de
--> 이 안에 있는 파일들이 로그인에 성공 했을 시! 건들 수 있는 권한 파일들(게시판이라면 글쓰기, 수정 기능 그런 것들)
-ex): DeModFreedBoard.vue, DeModCode.vue.... 현재는 총 4개의 파일이 있을거임

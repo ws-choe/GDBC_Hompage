@@ -1,0 +1,240 @@
+  /* 스타일 추가 */
+  .post-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-top: 10px;
+  }
+ 
+   /* 게시글 시작 */
+   .project-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .project-title {
+    text-align: left;
+    margin-top: 20px;
+  }
+  
+  .announcement-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .announcement-title {
+    text-align: left;
+    margin-top: 20px;
+  }
+  
+   .nav-buttons {
+     display: flex;
+     margin: 50px 0 50px 0;
+   }
+   
+   .project-container .nav-button {
+    display: block;
+    padding: 10px 20px;
+    margin: 0 20px 0 0;
+    background-color: #92AD68;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+  }
+  
+  .project-container .nav-button:hover {
+    background-color: #3F6E42;
+  }
+  
+  .project-container .active {
+    background-color: #3F6E42;
+  }
+  
+  .announcement-container .nav-button {
+  display: block;
+  padding: 10px 20px;
+  margin: 0 20px 0 0px;
+  background-color: #FACA4E;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  }
+  
+  .announcement-container .nav-button:hover {
+  background-color: #FF981B;
+  }
+  
+  .announcement-container .active {
+  background-color: #e67e22;
+  }
+   
+   .container {
+     max-width: 1200px;
+     margin: auto;
+     padding: 20px;
+     
+   }
+   
+   h1 {
+     font-size: 24px;
+     text-align: center;
+     margin-bottom: 20px;
+   }
+   
+   .input {
+     width: 100%;
+     padding: 10px;
+     font-size: 16px;
+     border: none;
+     outline: none;
+     margin-left: 10px;
+   }
+   
+   .title-input {
+     border-bottom: solid 1px #EDEDED;
+   }
+   
+   .input:focus {
+     border-bottom: solid 1px #EDEDED;
+     outline: none;
+     color: black;
+   }
+   
+   .textarea {
+    width: 100%;
+    border-radius: 39px;
+    padding: 30px 120px 10px 30px;
+    height: 350px;
+    resize: none;
+    border: none;
+  }
+   
+   .button {
+     display: block;
+     width: 100%;
+     padding: 10px;
+     border: none;
+     border-radius: 5px;
+     background-color: #ffa500;
+     color: white;
+     font-size: 16px;
+     cursor: pointer;
+
+   }
+   
+   .button:hover {
+     background-color: #e69500;
+   }
+   
+   label {
+     display: block;
+     margin-bottom: 5px;
+   }
+   
+   img {
+     display: block;
+     margin-top: 10px;
+   }
+   
+   /* 게시판 작성 */
+   .write-box {
+     border: 1px solid #002d68;
+     border-radius: 55px;
+     padding: 40px 40px 20px 40px;
+     display: block;
+     margin-bottom: 30px;
+   }
+   
+   /* 첨부파일 부분*/
+   #image-upload,
+   #image-upload2,
+   #image-upload3,
+   #image-upload4 {
+     display: none !important;
+   }
+
+   .file-names {
+     margin: 10px 15px 0 0;
+   }
+   
+   .file-names p {
+    margin: 0;
+    text-align: center;
+   }
+   .write-file {
+    display: inline-block;
+    flex-direction: column; /* 수직 배치를 위해 flex-direction을 column으로 설정 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    margin-top: 20px;
+   }
+   
+   .file-upload-label {
+     width: 120px;
+     display: inline-block;
+     justify-content: center;
+     align-items: center;
+     margin: 10px 0;
+   }
+
+   .file-upload-section {
+    display: flex;
+   }
+   
+   .write-file svg {
+     color: #002D68;
+   }
+
+   
+   form > div {
+     margin-bottom: initial;
+     display: initial;
+     flex-direction: initial;
+     align-items: initial;
+   }
+   
+   .button-group {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: row; /* flex-direction을 초기화합니다 */
+     gap: 10px; /* 버튼 간의 간격을 추가합니다 */
+     margin: 80px 0;
+   }
+   
+   .cancel-button,
+   .write-button {
+     border: 1px solid #002D68;
+     background-color: white;
+     padding: 10px 35px;
+     margin: 10px;
+   }
+
+   .outer-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .justify-content-between {
+    
+  }
+  
+  .inner-container {
+    width: 1800px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+  }

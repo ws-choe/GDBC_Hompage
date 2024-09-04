@@ -1,0 +1,37 @@
+App.vue = Main.css, Main.js = 완료
+
+/* 메인페이지들 로그인 유무 */
+Home.vue = Home.css. Home.js (비로그인 메인) = 
+MainHome.vue = Home.css, Home.js(로그인 메인??)
+
+/* 로그인 화면 */
+Login.vue = Login.css, useLogin.js = 완료
+
+/* 회원가입 화면 */
+SignUp.vue = SignUp.css, Sign.js =
+
+/* 센터 개요 구성 */ > src/style/firstmenu & src/script/onemenu
+AgencyIntroduction.vue = Agency.css Agency.js
+
+/* 훈련 안내 구성 */ > src/style/secondmenu & src/script/twomenu
+TrainingContent.vue = Tring.css Tring.js(훈련안내)
+AdmissionProcess.vue = AdmPr.css, AdmPr.js(입학절차)
+ApplyForAdmission.vue = Apply.css, Apply.js(입학신청)
+studyTimeTable.vue = StTime.css, StTime.js(학습시간표)
+
+/* 소식 */ > src/style/thridmenu & src/script/threemenu
+CenterNews.vue = CeNew.css, CeNew.js(센터소식)
+Gallery.vue = Gall.css, Gall.js(갤러리)
+
+/* 프로젝트 */ > src/style/fourthmenu & src/script/fourmenu
+RecommendationProposal.vue = ReDation.css, ReDation.js(과제제안서)
+Activityplan.vue = AcPlan.css, AcPcss,js 파일 링크 메모장lan.js(수행계획서)
+Presentation.vue = PrSen.css, PrSen.js(발표자료)
+FinalReport.vue = FiReport.css, FiReport.js(최종보고서)
+Code.vue = Code.css, Code.js(코드)
+
+/* 공지사항 */ > src/style/fifthmenu & src/script/fivemenu
+RecruitmentNotice.vue = ReNotice.css, ReNotice.js(모집공고)
+FreeBoard.vue = FrBoard.css, FrBoard.js(자유게시판)
+CourseReviews.vue = CoReview.css, CoReview.js(수강후기)
+

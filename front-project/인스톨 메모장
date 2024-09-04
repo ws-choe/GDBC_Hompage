@@ -1,0 +1,48 @@
+install 사항
+
+필수 사항
+node.js  설치 확인하세요.
+
+
+# Vue CLI 설치 - Vue 프로젝트를 초기화하고 관리하는 데 사용
+npm install -g @vue/cli
+
+# Pinia 설치 - Vue의 상태 관리 라이브러리
+npm install pinia
+
+# Vue, Bootstrap, Bootstrap-Vue-3 설치 - Vue 프레임워크와 Bootstrap UI 라이브러리
+npm install vue bootstrap bootstrap-vue-3
+
+# Vue Router 설치 (Vue 3 버전) - Vue 애플리케이션의 라우팅을 담당
+npm install vue-router@4
+
+# CORS 설치 - Express 애플리케이션에서 CORS(Cross-Origin Resource Sharing)를 처리
+npm install cors
+
+# MySQL2 설치 - MySQL 데이터베이스와의 연동을 위한 Node.js 클라이언트
+npm install mysql2
+
+# Express 설치 - Node.js를 위한 빠르고 간결한 웹 프레임워크
+npm install express
+
+# Axios 설치 - HTTP 요청을 수행하는 Promise 기반 클라이언트
+npm install axios
+
+#피니아와 퍼시스트 플러그인 설치:
+npm install pinia @pinia-plugin-persist
+
+#부트스트랩 아이콘 사용
+npm install --save bootstrap-icons
+
+#제이쿼리 사용
+npm install --save jquery
+
+#4일차
+#jsonwebtoken 로그인토큰 설치
+npm install jsonwebtoken
+
+#삭제 명령어
+npm uninstall 삭제하고싶은것
+
+#아이콘 사용
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome

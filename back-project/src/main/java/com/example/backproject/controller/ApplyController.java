@@ -45,7 +45,7 @@ public class ApplyController {
 
         // 이메일 전송
         EmailDto emailDto = new EmailDto();
-        emailDto.setTo("tjs48696@naver.com"); // 관리자의 이메일 주소
+        emailDto.setTo("samsung1295@naver.com"); // 관리자의 이메일 주소
         emailDto.setSubject(String.format("%s님 입학 신청서",apply.getName()));
         emailDto.setText(String.format("신청서가 제출되었습니다:\n\n이름: %s\n이메일: %s\n전화번호: %s\n",
                 apply.getName(), apply.getEmail(), apply.getPhone()));
